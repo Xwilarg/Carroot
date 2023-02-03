@@ -9,9 +9,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c43e2f1f4e0788349b23b2a5e32d27df, type: 3}
-  m_Name: PlayerInfo
+  m_Script: {fileID: 11500000, guid: f2f6dfb141ebe8c4186941cfa3020858, type: 3}
+  m_Name: GrainThrow
   m_EditorClassIdentifier: 
-  Speed: 10
-  AbilityOne: {fileID: 11400000, guid: cea5ade9cd0d6a04e8f64b3d9261426c, type: 2}
-  AbilityTwo: {fileID: 0}
+  Prefab: {fileID: 4599850309148977871, guid: 39ebd38ab803c8047b61201a98dfa331, type: 3}
+  ReloadTime: 3
+  ThrowDirection: {x: 1, y: 1}
+  ThrowForce: 10
+  TimeBeforeDisappear: 5
