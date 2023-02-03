@@ -15,5 +15,7 @@ namespace GlobalGameJam2023.SO
         public float ThrowForce;
         [Tooltip("Time before the profile is automatically deleted")]
         public float TimeBeforeDisappear;
+        [Tooltip("What the ability actually does")]
+        public AbilityType Type;
     }
 }

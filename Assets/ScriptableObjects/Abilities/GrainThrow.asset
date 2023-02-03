@@ -17,3 +17,4 @@ MonoBehaviour:
   ThrowDirection: {x: 1, y: 1}
   ThrowForce: 10
   TimeBeforeDisappear: 5
+  Type: 0

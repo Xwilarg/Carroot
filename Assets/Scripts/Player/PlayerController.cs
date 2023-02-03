@@ -1,4 +1,6 @@
+using GlobalGameJam2023.Ability;
 using GlobalGameJam2023.SO;
+using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -49,7 +51,18 @@ namespace GlobalGameJam2023.Player
         {
             var go = Instantiate(info.Prefab, transform.position, Quaternion.identity);
             var rb = go.GetComponent<Rigidbody2D>();
-            rb.AddForce(info.ThrowDirection.normalized * info.ThrowForce, ForceMode2D.Impulse);
+            rb.AddForce(info.ThrowDirection.normalized * info.ThrowForce * new Vector2(_sr.flipX ? -1f : 1f, 1f), ForceMode2D.Impulse);
+            go.GetComponent<Projectile>().OnCollision += (_, e) =>
+            {
+                switch (info.Type)
+                {
+                    case AbilityType.TELEPORT:
+                        transform.position = e.Position;
+                        break;
+
+                    default: throw new NotImplementedException();
+                }
+            };
             Destroy(go, info.TimeBeforeDisappear);
             StartCoroutine(ReloadAbility(_info.AbilityOne, index));
         }
