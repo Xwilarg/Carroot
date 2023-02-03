@@ -9,8 +9,11 @@ namespace GlobalGameJam2023.Ability
 
         private void OnCollisionEnter2D(Collision2D collision)
         {
-            OnCollision?.Invoke(this, new(collision.contacts[0].point));
-            Destroy(gameObject);
+            if (collision.enabled) // Platforms still call this methods even when you shoot from below
+            {
+                OnCollision?.Invoke(this, new(collision.contacts[0].point));
+                Destroy(gameObject);
+            }
         }
     }
 }
