@@ -27,7 +27,7 @@ namespace GlobalGameJam2023.Player
 
         private void FixedUpdate()
         {
-            _rb.velocity = new Vector2(_movX * _info.Speed, _rb.velocity.y);
+            _rb.velocity = new Vector2(_movX * _info.Speed * Time.fixedDeltaTime, _rb.velocity.y);
         }
 
         /// <summary>
