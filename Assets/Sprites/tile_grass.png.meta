@@ -69,7 +69,7 @@ TextureImporter:
   platformSettings:
   - serializedVersion: 3
     buildTarget: DefaultTexturePlatform
-    maxTextureSize: 256
+    maxTextureSize: 1024
     resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 0
@@ -521,7 +521,7 @@ TextureImporter:
       name: tile_grass_19
       rect:
         serializedVersion: 2
-        x: 32
+        x: 64
         y: 64
         width: 32
         height: 32
@@ -542,8 +542,8 @@ TextureImporter:
       name: tile_grass_20
       rect:
         serializedVersion: 2
-        x: 64
-        y: 64
+        x: 0
+        y: 32
         width: 32
         height: 32
       alignment: 0
@@ -563,7 +563,7 @@ TextureImporter:
       name: tile_grass_21
       rect:
         serializedVersion: 2
-        x: 0
+        x: 32
         y: 32
         width: 32
         height: 32
@@ -584,7 +584,7 @@ TextureImporter:
       name: tile_grass_22
       rect:
         serializedVersion: 2
-        x: 32
+        x: 64
         y: 32
         width: 32
         height: 32
@@ -605,8 +605,8 @@ TextureImporter:
       name: tile_grass_23
       rect:
         serializedVersion: 2
-        x: 64
-        y: 32
+        x: 0
+        y: 0
         width: 32
         height: 32
       alignment: 0
@@ -626,7 +626,7 @@ TextureImporter:
       name: tile_grass_24
       rect:
         serializedVersion: 2
-        x: 0
+        x: 32
         y: 0
         width: 32
         height: 32
@@ -639,48 +639,6 @@ TextureImporter:
       bones: []
       spriteID: 5b60ddc053a47b749a94210fa433ee74
       internalID: 722324147
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: tile_grass_25
-      rect:
-        serializedVersion: 2
-        x: 32
-        y: 0
-        width: 32
-        height: 32
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: b13a7c1fddd3cae4e9c2a527f9d07097
-      internalID: 1323270443
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: tile_grass_26
-      rect:
-        serializedVersion: 2
-        x: 64
-        y: 0
-        width: 32
-        height: 32
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: ff6e40d89f54f0146b78e11c272c2417
-      internalID: -1356973482
       vertices: []
       indices: 
       edges: []
@@ -707,7 +665,6 @@ TextureImporter:
       tile_grass_6: -955269353
       tile_grass_22: 1762014719
       tile_grass_3: -392991410
-      tile_grass_25: 1323270443
       tile_grass_9: 1451006933
       tile_grass_19: -545775616
       tile_grass_4: 381542307
@@ -716,7 +673,6 @@ TextureImporter:
       tile_grass_14: -578837013
       tile_grass_16: -82114208
       tile_grass_18: -414086576
-      tile_grass_26: -1356973482
       tile_grass_11: 1467072123
       tile_grass_12: -280317004
       tile_grass_7: 1057783472
