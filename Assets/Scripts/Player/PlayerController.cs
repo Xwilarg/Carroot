@@ -69,7 +69,7 @@ namespace GlobalGameJam2023.Player
                         }
                         _lastLiana.Clear();
                         var down = Vector2.down;
-                        while (Physics2D.OverlapCircle(e.Position + down, .5f, 1 << LayerMask.GetMask("Player")))
+                        while (!Physics2D.OverlapCircle(e.Position + down, .5f, 1 << LayerMask.GetMask("Player")))
                         {
                             _lastLiana.Add(Instantiate(info.PrefabSpe, e.Position + down, Quaternion.identity));
                             down += Vector2.down;
