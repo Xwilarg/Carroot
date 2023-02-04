@@ -2,6 +2,7 @@
 {
     public enum AbilityType
     {
-        TELEPORT
+        TELEPORT,
+        DEPLOY_LIANA
     }
 }

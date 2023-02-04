@@ -5,7 +5,10 @@ namespace GlobalGameJam2023.SO
     [CreateAssetMenu(menuName = "ScriptableObject/AbilityInfo", fileName = "AbilityInfo")]
     public class AbilityInfo : ScriptableObject
     {
+        [Tooltip("GameObject spawned for the projectile")]
         public GameObject Prefab;
+        [Tooltip("Additional object that may be spawned depending of the ability")]
+        public GameObject PrefabSpe;
 
         [Tooltip("Time before the ability can be reused (seconds)")]
         public float ReloadTime;

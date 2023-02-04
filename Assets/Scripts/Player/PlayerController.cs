@@ -2,6 +2,7 @@ using GlobalGameJam2023.Ability;
 using GlobalGameJam2023.SO;
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -18,6 +19,7 @@ namespace GlobalGameJam2023.Player
         private SpriteRenderer _sr;
 
         private bool[] _canUseAbility = new bool[2] { true, true };
+        private readonly List<GameObject> _lastLiana = new();
 
         private void Awake()
         {
@@ -60,6 +62,20 @@ namespace GlobalGameJam2023.Player
                         transform.position = e.Position;
                         break;
 
+                    case AbilityType.DEPLOY_LIANA:
+                        foreach (var liana in _lastLiana)
+                        {
+                            Destroy(liana);
+                        }
+                        _lastLiana.Clear();
+                        var down = Vector2.down;
+                        while (Physics2D.OverlapCircle(e.Position + down, .5f, 1 << LayerMask.GetMask("Player")))
+                        {
+                            _lastLiana.Add(Instantiate(info.PrefabSpe, e.Position + down, Quaternion.identity));
+                            down += Vector2.down;
+                        }
+                        break;
+
                     default: throw new NotImplementedException();
                 }
             };
@@ -88,6 +104,14 @@ namespace GlobalGameJam2023.Player
             if (value.performed && _canUseAbility[0])
             {
                 FireProjectile(_info.AbilityOne, 0);
+            }
+        }
+
+        public void AbilityTwo(InputAction.CallbackContext value)
+        {
+            if (value.performed && _canUseAbility[1])
+            {
+                FireProjectile(_info.AbilityTwo, 1);
             }
         }
         #endregion
