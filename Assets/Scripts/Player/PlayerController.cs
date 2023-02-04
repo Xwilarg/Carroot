@@ -70,6 +70,14 @@ namespace GlobalGameJam2023.Player
             }
         }
 
+        private void OnCollisionEnter2D(Collision2D collision)
+        {
+            if (collision.collider.CompareTag("Trap"))
+            {
+                Death();
+            }
+        }
+
         private void OnTriggerExit2D(Collider2D collision)
         {
             if (collision.CompareTag("Liana"))
@@ -127,6 +135,11 @@ namespace GlobalGameJam2023.Player
             };
             Destroy(go, info.TimeBeforeDisappear);
             StartCoroutine(ReloadAbility(_info.AbilityOne, index));
+        }
+
+        private void Death()
+        {
+            
         }
 
         #region Input System
