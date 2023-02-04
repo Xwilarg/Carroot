@@ -8,7 +8,7 @@ namespace GlobalGameJam2023.Menu
         public static GameMenu Instance { private set; get; }
 
         [SerializeField]
-        private GameObject _pauseMenu;
+        private GameObject _pauseMenu, _endGameMenu;
 
         private void Awake()
         {
@@ -26,11 +26,17 @@ namespace GlobalGameJam2023.Menu
             Time.timeScale = IsGameActive ? 1f : 0f;
         }
 
+        public void EndGame()
+        {
+            _endGameMenu.SetActive(true);
+        }
+
         public void LoadNextLevel()
         {
             // TODO
         }
 
-        public bool IsGameActive => !_pauseMenu.activeInHierarchy;
+        public bool IsGameActive => !_pauseMenu.activeInHierarchy && !DidGameEnded;
+        public bool DidGameEnded => _endGameMenu.activeInHierarchy;
     }
 }

@@ -36,6 +36,10 @@ namespace GlobalGameJam2023.Player
 
         private void FixedUpdate()
         {
+            if (GameMenu.Instance.DidGameEnded) // Game ended, ignore all inputs
+            {
+                return;
+            }
             _rb.gravityScale = _canGoUp ? 0f : 1f;
             _rb.velocity = new Vector2(
                 x: _movX * _info.Speed * Time.fixedDeltaTime,
@@ -51,7 +55,7 @@ namespace GlobalGameJam2023.Player
             }
             else if (collision.CompareTag("FinishLine"))
             {
-                // TODO: Victory
+                GameMenu.Instance.EndGame();
             }
         }
 

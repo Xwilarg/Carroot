@@ -9,14 +9,14 @@ namespace GlobalGameJam2023.Level
         [SerializeField]
         private TMP_Text _timerText;
 
-        private float _timer;
+        public float TimerValue { private set; get; }
 
         private void Update()
         {
             if (GameMenu.Instance.IsGameActive)
             {
-                _timer += Time.deltaTime;
-                _timerText.text = $"{_timer:0.00}";
+                TimerValue += Time.deltaTime;
+                _timerText.text = $"{TimerValue:0.00}";
             }
         }
     }
