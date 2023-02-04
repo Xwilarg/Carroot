@@ -12,5 +12,6 @@
     "deleteSavefile": "Suppr. Sauvegardes",
     "pause": "Le jeu est en pause",
     "resume": "Reprendre",
-    "backToMenu": "Retour au menu"
+    "backToMenu": "Retour à la selection de niveau",
+    "nextLevel": "Niveau suivant"
 }

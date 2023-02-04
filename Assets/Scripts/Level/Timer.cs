@@ -13,7 +13,7 @@ namespace GlobalGameJam2023.Level
 
         private void Update()
         {
-            if (PauseMenu.Instance.IsGameActive)
+            if (GameMenu.Instance.IsGameActive)
             {
                 _timer += Time.deltaTime;
                 _timerText.text = $"{_timer:0.00}";

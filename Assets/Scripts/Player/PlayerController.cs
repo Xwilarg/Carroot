@@ -152,7 +152,7 @@ namespace GlobalGameJam2023.Player
         {
             if (value.performed)
             {
-                PauseMenu.Instance.TogglePause();
+                GameMenu.Instance.TogglePause();
             }
         }
         #endregion
