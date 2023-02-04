@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using GlobalGameJam2023.Persistency;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -34,7 +35,7 @@ namespace GlobalGameJam2023.Translation
 
         public string Tr(string key, params string[] arguments)
         {
-            var langData = _translationData[_currentLanguage];
+            var langData = _translationData[CurrentLanguage];
             string sentence;
             if (langData.ContainsKey(key))
             {
@@ -51,7 +52,7 @@ namespace GlobalGameJam2023.Translation
             return sentence;
         }
 
-        private string _currentLanguage = "english";
+        private string _currentLanguage = null;
         public string CurrentLanguage
         {
             set
@@ -65,8 +66,12 @@ namespace GlobalGameJam2023.Translation
                 {
                     tt.UpdateText();
                 }
+                DataManager.Instance.Save();
             }
-            get => _currentLanguage;
+            get
+            {
+                return _currentLanguage ??= DataManager.Instance.SaveData.Language;
+            }
         }
 
         private readonly Dictionary<string, Dictionary<string, string>> _translationData = new Dictionary<string, Dictionary<string, string>>();

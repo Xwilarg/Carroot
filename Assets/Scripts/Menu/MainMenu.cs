@@ -1,4 +1,5 @@
 ﻿using GlobalGameJam2023.Persistency;
+using GlobalGameJam2023.Translation;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -16,6 +17,11 @@ namespace GlobalGameJam2023.Menu
                 _quitButton.SetActive(false);
                 _locateSaveButton.SetActive(false);
             }
+        }
+
+        public void SetLanguage(string language)
+        {
+            Translate.Instance.CurrentLanguage = language;
         }
 
         public void LaunchGame()
