@@ -28,7 +28,7 @@ namespace GlobalGameJam2023.Player
         // Controls info
         private float _movX;
         private bool _isTryingToGoUp;
-        private bool _canGoUp;
+        private int _canGoUp;
 
         // Components
         private Rigidbody2D _rb;
@@ -72,10 +72,10 @@ namespace GlobalGameJam2023.Player
             {
                 return;
             }
-            _rb.gravityScale = _canGoUp ? 0f : _baseGravityScale;
+            _rb.gravityScale = _canGoUp > 0 ? 0f : _baseGravityScale;
             _rb.velocity = new Vector2(
                 x: _movX * _info.Speed * Time.fixedDeltaTime,
-                y: _canGoUp && _isTryingToGoUp ? _info.ClimbingSpeed * Time.fixedDeltaTime : _rb.velocity.y // Attempt to climb a liana if it's possible
+                y: _canGoUp > 0 && _isTryingToGoUp ? _info.ClimbingSpeed * Time.fixedDeltaTime : _rb.velocity.y // Attempt to climb a liana if it's possible
             );
             _anim.SetBool("IsMoving", _rb.velocity.x != 0f);
             _coordinates.Add(new()
@@ -120,7 +120,7 @@ namespace GlobalGameJam2023.Player
         {
             if (collision.CompareTag("Liana"))
             {
-                _canGoUp = true;
+                _canGoUp++;
             }
             else if (collision.CompareTag("FinishLine"))
             {
@@ -140,7 +140,7 @@ namespace GlobalGameJam2023.Player
         {
             if (collision.CompareTag("Liana"))
             {
-                _canGoUp = false;
+                _canGoUp--;
             }
             else if (collision.CompareTag("MovingPlatform"))
             {
