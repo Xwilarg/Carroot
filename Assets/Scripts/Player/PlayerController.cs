@@ -7,6 +7,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 namespace GlobalGameJam2023.Player
 {
@@ -41,9 +42,6 @@ namespace GlobalGameJam2023.Player
         // Ghost
         private List<Coordinate> _coordinates = new();
         private float _timeRef;
-
-        //event death
-        public static event PlayerControllerEventHandler death;
 
         public Ghost Ghost { set; private get; }
 
@@ -215,7 +213,7 @@ namespace GlobalGameJam2023.Player
 
         private void Death()
         {
-            death?.Invoke(this);
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }
 
         #region Input System
