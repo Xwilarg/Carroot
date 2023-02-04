@@ -13,5 +13,6 @@
     "pause": "Game is Paused",
     "resume": "Resume",
     "backToLevelSelection": "Back to Level Selection",
-    "nextLevel": "Next Level"
+    "nextLevel": "Next Level",
+    "yourTime": "Your Time:"
 }

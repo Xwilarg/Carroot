@@ -13,5 +13,6 @@
     "pause": "Le jeu est en pause",
     "resume": "Reprendre",
     "backToMenu": "Retour à la selection de niveau",
-    "nextLevel": "Niveau suivant"
+    "nextLevel": "Niveau suivant",
+    "yourTime": "Votre temps :"
 }

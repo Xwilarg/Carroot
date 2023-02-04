@@ -1,4 +1,7 @@
-﻿using UnityEngine;
+﻿using GlobalGameJam2023.Level;
+using GlobalGameJam2023.Persistency;
+using TMPro;
+using UnityEngine;
 using UnityEngine.SceneManagement;
 
 namespace GlobalGameJam2023.Menu
@@ -10,9 +13,15 @@ namespace GlobalGameJam2023.Menu
         [SerializeField]
         private GameObject _pauseMenu, _endGameMenu;
 
+        [SerializeField]
+        private TMP_Text _timerText;
+
+        private Timer _timer;
+
         private void Awake()
         {
             Instance = this;
+            _timer = GetComponent<Timer>();
         }
 
         public void LoadMenu()
@@ -29,6 +38,21 @@ namespace GlobalGameJam2023.Menu
         public void EndGame()
         {
             _endGameMenu.SetActive(true);
+            _timerText.text = $"{_timer.TimerValue:0.00}";
+            var value = Mathf.CeilToInt(_timer.TimerValue * 100f);
+            if (DataManager.Instance.SaveData.LevelData.ContainsKey(LevelSelector.TargetLevel))
+            {
+                var previous = DataManager.Instance.SaveData.LevelData[LevelSelector.TargetLevel].Time;
+                if (value < previous)
+                {
+                    DataManager.Instance.SaveData.LevelData[LevelSelector.TargetLevel].Time = value;
+                }
+            }
+            else
+            {
+                DataManager.Instance.SaveData.LevelData.Add(LevelSelector.TargetLevel, new() { Time = value });
+            }
+            DataManager.Instance.Save();
         }
 
         public void LoadNextLevel()
