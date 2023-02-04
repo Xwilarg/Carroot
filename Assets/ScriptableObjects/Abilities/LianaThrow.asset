@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f2f6dfb141ebe8c4186941cfa3020858, type: 3}
+  m_Name: LianaThrow
+  m_EditorClassIdentifier: 
+  Prefab: {fileID: 4599850309148977871, guid: 39ebd38ab803c8047b61201a98dfa331, type: 3}
+  PrefabSpe: {fileID: 6415637042799236984, guid: f861974ffdb082e4ebfdea8f901d7a8a, type: 3}
+  ReloadTime: 2
+  ThrowDirection: {x: 0, y: 1}
+  ThrowForce: 20
+  TimeBeforeDisappear: 5
+  Type: 1

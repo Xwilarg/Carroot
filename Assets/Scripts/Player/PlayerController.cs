@@ -1,30 +1,156 @@
+using GlobalGameJam2023.Ability;
+using GlobalGameJam2023.Menu;
 using GlobalGameJam2023.SO;
+using System;
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 namespace GlobalGameJam2023.Player
 {
+    [RequireComponent(typeof(Rigidbody2D), typeof(SpriteRenderer))]
     public class PlayerController : MonoBehaviour
     {
         [SerializeField]
         private PlayerInfo _info;
 
-        private Vector2 _mov;
+        // Controls info
+        private float _movX;
+        private bool _isTryingToGoUp;
+        private bool _canGoUp;
+
+        // Components
         private Rigidbody2D _rb;
+        private SpriteRenderer _sr;
+
+        // Abilities management
+        private bool[] _canUseAbility = new bool[2] { true, true };
+        private readonly List<GameObject> _lastLiana = new();
 
         private void Awake()
         {
             _rb = GetComponent<Rigidbody2D>();
+            _sr = GetComponent<SpriteRenderer>();
         }
 
         private void FixedUpdate()
         {
-            _rb.velocity = new Vector2(_mov.x * _info.Speed, _rb.velocity.y);
+            _rb.gravityScale = _canGoUp ? 0f : 1f;
+            _rb.velocity = new Vector2(
+                x: _movX * _info.Speed * Time.fixedDeltaTime,
+                y: _canGoUp && _isTryingToGoUp ? _info.ClimbingSpeed * Time.fixedDeltaTime : _rb.velocity.y // Attempt to climb a liana if it's possible
+            );
         }
 
+        private void OnTriggerEnter2D(Collider2D collision)
+        {
+            if (collision.CompareTag("Liana"))
+            {
+                _canGoUp = true;
+            }
+        }
+
+        private void OnTriggerExit2D(Collider2D collision)
+        {
+            if (collision.CompareTag("Liana"))
+            {
+                _canGoUp = false;
+            }
+        }
+
+        /// <summary>
+        /// Wait a specific time and allow to use an ability
+        /// </summary>
+        /// <param name="info">Scriptable object of the ability</param>
+        /// <param name="index">Array index of the ability</param>
+        /// <returns>IEnumerator used for coroutine</returns>
+        public IEnumerator ReloadAbility(AbilityInfo info, int index)
+        {
+            yield return new WaitForSeconds(info.ReloadTime);
+            _canUseAbility[index] = true;
+        }
+
+        /// <summary>
+        /// Throw a projectile, for when an ability is used
+        /// </summary>
+        /// <param name="info">Scriptable object of the ability</param>
+        /// <param name="index">Array index of the ability</param>
+        private void FireProjectile(AbilityInfo info, int index)
+        {
+            var go = Instantiate(info.Prefab, transform.position, Quaternion.identity);
+            var rb = go.GetComponent<Rigidbody2D>();
+            rb.AddForce(info.ThrowDirection.normalized * info.ThrowForce * new Vector2(_sr.flipX ? -1f : 1f, 1f), ForceMode2D.Impulse);
+            go.GetComponent<Projectile>().OnCollision += (_, e) =>
+            {
+                switch (info.Type)
+                {
+                    case AbilityType.TELEPORT:
+                        transform.position = e.Position; // We just teleport the player at the impact position
+                        break;
+
+                    case AbilityType.DEPLOY_LIANA:
+                        foreach (var liana in _lastLiana) // Remove all old instances of the previous liana
+                        {
+                            Destroy(liana);
+                        }
+                        _lastLiana.Clear();
+                        var down = Vector2.down;
+                        while (!Physics2D.OverlapCircle(e.Position + down, .5f, 1 << LayerMask.GetMask("Player"))) // As long as we can spawn liana we do so
+                        {
+                            _lastLiana.Add(Instantiate(info.PrefabSpe, e.Position + down + Vector2.up * .5f, Quaternion.identity));
+                            down += Vector2.down;
+                        }
+                        break;
+
+                    default: throw new NotImplementedException();
+                }
+            };
+            Destroy(go, info.TimeBeforeDisappear);
+            StartCoroutine(ReloadAbility(_info.AbilityOne, index));
+        }
+
+        #region Input System
         public void Move(InputAction.CallbackContext value)
         {
-            _mov = value.ReadValue<Vector2>();
+            var mov = value.ReadValue<Vector2>();
+            _movX = mov.x;
+            _isTryingToGoUp = mov.y > 0f;
+
+            // Flip sprite depending of where we are going
+            if (_movX > 0f)
+            {
+                _sr.flipX = false;
+            }
+            else if (_movX < 0f)
+            {
+                _sr.flipX = true;
+            }
         }
+
+        public void AbilityOne(InputAction.CallbackContext value)
+        {
+            if (value.performed && _canUseAbility[0])
+            {
+                FireProjectile(_info.AbilityOne, 0);
+            }
+        }
+
+        public void AbilityTwo(InputAction.CallbackContext value)
+        {
+            if (value.performed && _canUseAbility[1])
+            {
+                FireProjectile(_info.AbilityTwo, 1);
+            }
+        }
+
+        public void Pause(InputAction.CallbackContext value)
+        {
+            if (value.performed)
+            {
+                PauseMenu.Instance.TogglePause();
+            }
+        }
+        #endregion
     }
 }
