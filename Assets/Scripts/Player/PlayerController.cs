@@ -19,6 +19,10 @@ namespace GlobalGameJam2023.Player
 
         [SerializeField]
         private PlayerInfo _info;
+        [SerializeField] private Transform leftFoot;
+        [SerializeField] private Transform rightFoot;
+        [SerializeField] LayerMask colisionRaycastFoot;
+        [SerializeField] private float distanceRaycast = 0.5F;
 
         // Controls info
         private float _movX;
@@ -36,7 +40,7 @@ namespace GlobalGameJam2023.Player
         // Ghost
         private List<Coordinate> _coordinates = new();
         private float _timeRef;
-        
+
         //event death
         public static event PlayerControllerEventHandler death;
 
@@ -76,6 +80,36 @@ namespace GlobalGameJam2023.Player
                 Position = new() { X = transform.position.x, Y = transform.position.y },
                 Velocity = new() { X = _rb.velocity.x, Y = _rb.velocity.y },
             });
+
+            RaycastHit2D hit;
+            ContactFilter2D contactFilter;
+
+            RaycastHit2D[] hitLeft = Physics2D.RaycastAll(transform.position, -Vector3.up, distanceRaycast);
+            RaycastHit2D[] hitRight = Physics2D.RaycastAll(transform.position, -Vector3.up, distanceRaycast);
+
+            for (int i = 0; i < hitLeft.Length; i++)
+            {
+                if (hitLeft[i].collider != null && hitLeft[i].collider.CompareTag("MovingPlatform"))
+                {
+                    //transform.SetParent(hitLeft[i].transform);
+                    Debug.Log(hitLeft[i].collider.name);
+                }
+            }
+
+            for (int i = 0; i < hitRight.Length; i++)
+            {
+                if (hitRight[i].collider != null && hitRight[i].collider.CompareTag("MovingPlatform"))
+                {
+                    //transform.SetParent(hitRight[i].transform);
+                    Debug.Log(hitRight[i].collider.name);
+                }
+            }
+
+
+
+
+            Debug.DrawRay(leftFoot.position, -Vector3.up * distanceRaycast, Color.red, 0.1f);
+            Debug.DrawRay(rightFoot.position, -Vector3.up * distanceRaycast, Color.red, 0.1f);
         }
 
         private void OnTriggerEnter2D(Collider2D collision)
@@ -103,6 +137,18 @@ namespace GlobalGameJam2023.Player
             if (collision.CompareTag("Liana"))
             {
                 _canGoUp = false;
+            }
+            else if (collision.CompareTag("MovingPlatform"))
+            {
+                transform.parent = null;
+            }
+        }
+
+        private void OnCollisionExit2D(Collision2D collision)
+        {
+            if (collision.collider.CompareTag("MovingPlatform"))
+            {
+                transform.parent = null;
             }
         }
 
