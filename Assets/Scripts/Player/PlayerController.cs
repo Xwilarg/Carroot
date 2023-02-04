@@ -9,6 +9,8 @@ using UnityEngine.InputSystem;
 
 namespace GlobalGameJam2023.Player
 {
+    public delegate void PlayerControllerEventHandler(PlayerController sender);
+
     [RequireComponent(typeof(Rigidbody2D), typeof(SpriteRenderer))]
     public class PlayerController : MonoBehaviour
     {
@@ -31,6 +33,9 @@ namespace GlobalGameJam2023.Player
         // Ghost
         private List<Coordinate> _coordinates = new();
         private float _timeRef;
+        
+        //event death
+        public static event PlayerControllerEventHandler death;
 
         private void Awake()
         {
@@ -67,6 +72,14 @@ namespace GlobalGameJam2023.Player
             else if (collision.CompareTag("FinishLine"))
             {
                 GameMenu.Instance.EndGame(_coordinates);
+            }
+        }
+
+        private void OnCollisionEnter2D(Collision2D collision)
+        {
+            if (collision.collider.CompareTag("Trap"))
+            {
+                Death();
             }
         }
 
@@ -127,6 +140,11 @@ namespace GlobalGameJam2023.Player
             };
             Destroy(go, info.TimeBeforeDisappear);
             StartCoroutine(ReloadAbility(_info.AbilityOne, index));
+        }
+
+        private void Death()
+        {
+            death?.Invoke(this);
         }
 
         #region Input System
