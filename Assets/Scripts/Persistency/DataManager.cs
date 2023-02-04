@@ -26,9 +26,9 @@ namespace GlobalGameJam2023.Persistency
             {
                 if (_saveData == null)
                 {
-                    if (File.Exists("save.bin"))
+                    if (File.Exists($"{Application.persistentDataPath}/save.bin"))
                     {
-                        _saveData = JsonConvert.DeserializeObject<SaveData>(Encoding.UTF8.GetString(File.ReadAllBytes("save.bin")));
+                        _saveData = JsonConvert.DeserializeObject<SaveData>(Encoding.UTF8.GetString(File.ReadAllBytes($"{Application.persistentDataPath}/save.bin")));
                     }
                     else
                     {
@@ -41,7 +41,7 @@ namespace GlobalGameJam2023.Persistency
 
         public void Save()
         {
-            File.WriteAllBytes("save.bin", Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(_saveData)));
+            File.WriteAllBytes($"{Application.persistentDataPath}/save.bin", Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(_saveData)));
         }
 
         public void DeleteSaveFolder()
