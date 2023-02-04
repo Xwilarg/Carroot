@@ -209,6 +209,7 @@ namespace GlobalGameJam2023.Player
                 }
             };
             Destroy(go, info.TimeBeforeDisappear);
+            _canUseAbility[index] = false;
             StartCoroutine(ReloadAbility(_info.AbilityOne, index));
         }
 
