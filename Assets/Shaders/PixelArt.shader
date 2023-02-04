@@ -20,7 +20,7 @@ Shader "Sprites/PixelArt"
 	{
 		[PerRendererData] _MainTex("Sprite Texture", 2D) = "white" {}
 		_Color("Tint", Color) = (1,1,1,1)
-		_pixelsPerUnit("Pixels Per Unit", Float) = 16
+		_pixelsPerUnit("Pixels Per Unit", Float) = 32
 	}
 
 		SubShader
