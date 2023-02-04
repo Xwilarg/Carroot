@@ -13,5 +13,6 @@ MonoBehaviour:
   m_Name: PlayerInfo
   m_EditorClassIdentifier: 
   Speed: 500
+  ClimbingSpeed: 400
   AbilityOne: {fileID: 11400000, guid: cea5ade9cd0d6a04e8f64b3d9261426c, type: 2}
   AbilityTwo: {fileID: 11400000, guid: cfb0b01ab97360d4cb848fa5fcb0b7c3, type: 2}

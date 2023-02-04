@@ -50,6 +50,14 @@ namespace GlobalGameJam2023.Player
             }
         }
 
+        private void OnTriggerExit2D(Collider2D collision)
+        {
+            if (collision.CompareTag("Liana"))
+            {
+                _canGoUp = false;
+            }
+        }
+
         /// <summary>
         /// Wait a specific time and allow to use an ability
         /// </summary>
