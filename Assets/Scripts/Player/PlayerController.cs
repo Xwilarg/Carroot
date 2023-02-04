@@ -142,7 +142,10 @@ namespace GlobalGameJam2023.Player
                         }
                         _lastLiana.Clear();
                         var down = Vector2.down;
-                        while (!Physics2D.OverlapCircle(e.Position + down, .5f, 1 << LayerMask.GetMask("Player"))) // As long as we can spawn liana we do so
+                        var ignoreLayer = (1 << LayerMask.NameToLayer("Player"));
+                        ignoreLayer |= (1 << LayerMask.NameToLayer("Projectile"));
+                        ignoreLayer = ~ignoreLayer;
+                        while (!Physics2D.OverlapCircle(e.Position + down, .5f, ignoreLayer)) // As long as we can spawn liana we do so
                         {
                             _lastLiana.Add(Instantiate(info.PrefabSpe, e.Position + down + Vector2.up * .5f, Quaternion.identity));
                             down += Vector2.down;
