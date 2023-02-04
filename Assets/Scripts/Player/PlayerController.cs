@@ -53,8 +53,8 @@ namespace GlobalGameJam2023.Player
             _coordinates.Add(new()
             {
                 TimeSinceStart = Time.unscaledTime - _timeRef,
-                Position = transform.position,
-                Velocity = _rb.velocity
+                Position = new() { X = transform.position.x, Y = transform.position.y },
+                Velocity = new() { X = _rb.velocity.x, Y = _rb.velocity.y },
             });
         }
 
