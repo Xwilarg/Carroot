@@ -26,6 +26,11 @@ namespace GlobalGameJam2023.Menu
             }
         }
 
+        public void ResumeTimeScale()
+        {
+            Time.timeScale = 1f;
+        }
+
         public void LoadMenu()
         {
             SceneManager.LoadScene("LevelSelect");
