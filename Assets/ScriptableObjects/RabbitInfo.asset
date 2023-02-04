@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: RabbitInfo
   m_EditorClassIdentifier: 
   Speed: 400
-  MinDistance: 2
+  MinDistance: 1

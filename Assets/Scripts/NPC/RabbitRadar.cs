@@ -13,7 +13,6 @@ namespace GlobalGameJam2023.NPC
 
         private void OnTriggerEnter2D(Collider2D collision)
         {
-            Debug.Log(collision.name);
             if (collision.CompareTag("Player"))
             {
                 _rabbit.Target = collision.gameObject;

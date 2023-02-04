@@ -23,10 +23,9 @@ namespace GlobalGameJam2023.NPC
             if (Target != null)
             {
                 var x = 0f;
-                Debug.Log(Mathf.Abs(Target.transform.position.x - transform.position.x));
                 if (Mathf.Abs(Target.transform.position.x - transform.position.x) > _info.MinDistance)
                 {
-                    x = transform.position.x < Target.transform.position.x ? -1f : 1f;
+                    x = transform.position.x < Target.transform.position.x ? 1f : -1f;
 
                 }
                 _rb.velocity = new Vector2(x * Time.deltaTime * _info.Speed, _rb.velocity.y);
