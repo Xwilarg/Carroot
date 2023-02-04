@@ -14,5 +14,8 @@
     "resume": "Reprendre",
     "backToMenu": "Retour à la selection de niveau",
     "nextLevel": "Niveau suivant",
-    "yourTime": "Votre temps :"
+    "yourTime": "Votre temps :",
+    "level": "Niveau",
+    "best": "Meilleur",
+    "retry": "Rééssayer"
 }
