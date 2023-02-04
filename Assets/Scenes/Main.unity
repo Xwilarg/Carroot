@@ -843,6 +843,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _player: {fileID: 9017049287963654285, guid: 233d7e8f2f27ea348b6050a95123ee04, type: 3}
+  _ghost: {fileID: 3251882590526137836, guid: 4ea7e677f8f88034aa9844a06050d560, type: 3}
 --- !u!1 &815106896
 GameObject:
   m_ObjectHideFlags: 0
@@ -1052,7 +1053,6 @@ MonoBehaviour:
   _pauseMenu: {fileID: 273709911}
   _endGameMenu: {fileID: 343725960}
   _timerText: {fileID: 815106899}
-  _timer: {fileID: 1022028739}
 --- !u!1 &1024815592
 GameObject:
   m_ObjectHideFlags: 0
