@@ -32,6 +32,7 @@ namespace GlobalGameJam2023.Player
         // Components
         private Rigidbody2D _rb;
         private SpriteRenderer _sr;
+        private Animator _anim;
 
         // Abilities management
         private bool[] _canUseAbility = new bool[2] { true, true };
@@ -54,6 +55,7 @@ namespace GlobalGameJam2023.Player
             _rb = GetComponent<Rigidbody2D>();
             _baseGravityScale = _rb.gravityScale;
             _sr = GetComponent<SpriteRenderer>();
+            _anim = GetComponent<Animator>();
         }
 
         public void StartGame()
@@ -77,6 +79,7 @@ namespace GlobalGameJam2023.Player
                 x: _movX * _info.Speed * Time.fixedDeltaTime,
                 y: _canGoUp && _isTryingToGoUp ? _info.ClimbingSpeed * Time.fixedDeltaTime : _rb.velocity.y // Attempt to climb a liana if it's possible
             );
+            _anim.SetBool("IsMoving", _rb.velocity.x != 0f);
             _coordinates.Add(new()
             {
                 TimeSinceStart = Time.unscaledTime - _timeRef,

@@ -1290,6 +1290,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _pauseMenu: {fileID: 273709911}
   _endGameMenu: {fileID: 343725960}
+  _nextLevelButton: {fileID: 1642248033}
   _timerText: {fileID: 815106899}
   _bestTimerText: {fileID: 1067932011}
 --- !u!114 &1022028742
