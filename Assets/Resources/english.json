@@ -12,5 +12,6 @@
     "deleteSavefile": "Delete All Saves",
     "pause": "Game is Paused",
     "resume": "Resume",
-    "backToMenu": "Back to Menu"
+    "backToMenu": "Back to Menu",
+    "references": "References"
 }
