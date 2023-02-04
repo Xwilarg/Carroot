@@ -42,10 +42,13 @@ namespace GlobalGameJam2023.Player
 
         public Ghost Ghost { set; private get; }
 
+        private float _baseGravityScale;
+
         private void Awake()
         {
             Instance = this;
             _rb = GetComponent<Rigidbody2D>();
+            _baseGravityScale = _rb.gravityScale;
             _sr = GetComponent<SpriteRenderer>();
         }
 
@@ -65,7 +68,7 @@ namespace GlobalGameJam2023.Player
             {
                 return;
             }
-            _rb.gravityScale = _canGoUp ? 0f : 1f;
+            _rb.gravityScale = _canGoUp ? 0f : _baseGravityScale;
             _rb.velocity = new Vector2(
                 x: _movX * _info.Speed * Time.fixedDeltaTime,
                 y: _canGoUp && _isTryingToGoUp ? _info.ClimbingSpeed * Time.fixedDeltaTime : _rb.velocity.y // Attempt to climb a liana if it's possible
