@@ -26,8 +26,7 @@ namespace GlobalGameJam2023.Player
         [SerializeField] private float distanceRaycast = 0.5F;
 
         // Controls info
-        private float _movX;
-        private bool _isTryingToGoUp;
+        private Vector2 _mov;
         private int _canGoUp;
 
         // Components
@@ -74,8 +73,8 @@ namespace GlobalGameJam2023.Player
             }
             _rb.gravityScale = _canGoUp > 0 ? 0f : _baseGravityScale;
             _rb.velocity = new Vector2(
-                x: _movX * _info.Speed * Time.fixedDeltaTime,
-                y: _canGoUp > 0 && _isTryingToGoUp ? _info.ClimbingSpeed * Time.fixedDeltaTime : _rb.velocity.y // Attempt to climb a liana if it's possible
+                x: _mov.x * _info.Speed * Time.fixedDeltaTime,
+                y: _canGoUp > 0 ? _info.ClimbingSpeed * Time.fixedDeltaTime * _mov.y : _rb.velocity.y // Attempt to climb a liana if it's possible
             );
             _anim.SetBool("IsMoving", _rb.velocity.x != 0f);
             _coordinates.Add(new()
@@ -219,16 +218,14 @@ namespace GlobalGameJam2023.Player
         #region Input System
         public void Move(InputAction.CallbackContext value)
         {
-            var mov = value.ReadValue<Vector2>();
-            _movX = mov.x;
-            _isTryingToGoUp = mov.y > 0f;
+            _mov = value.ReadValue<Vector2>().normalized;
 
             // Flip sprite depending of where we are going
-            if (_movX > 0f)
+            if (_mov.x > 0f)
             {
                 _sr.flipX = false;
             }
-            else if (_movX < 0f)
+            else if (_mov.x < 0f)
             {
                 _sr.flipX = true;
             }
