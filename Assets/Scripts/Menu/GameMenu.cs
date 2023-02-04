@@ -15,7 +15,7 @@ namespace GlobalGameJam2023.Menu
         private GameObject _pauseMenu, _endGameMenu;
 
         [SerializeField]
-        private TMP_Text _timerText;
+        private TMP_Text _timerText, _bestTimerText;
 
         private Timer _timer;
 
@@ -51,6 +51,11 @@ namespace GlobalGameJam2023.Menu
                         Time = value,
                         Replay = replay
                     };
+                    _bestTimerText.text = $"{(previous / 100f):0.00}";
+                }
+                else
+                {
+                    _bestTimerText.text = $"{_timer.TimerValue:0.00}";
                 }
             }
             else
@@ -60,8 +65,14 @@ namespace GlobalGameJam2023.Menu
                     Time = value,
                     Replay = replay
                 });
+                _bestTimerText.text = $"{_timer.TimerValue:0.00}";
             }
             DataManager.Instance.Save();
+        }
+
+        public void Retry()
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }
 
         public void LoadNextLevel()
