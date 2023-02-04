@@ -9,6 +9,11 @@ namespace GlobalGameJam2023.Player
         public void LoadData(IEnumerable<Coordinate> coordinates)
         {
             _coordinates = coordinates.ToArray();
+            gameObject.SetActive(false);
+        }
+
+        public void StartGhost()
+        {
             _refTimer = Time.unscaledTime;
             _didStart = true;
         }

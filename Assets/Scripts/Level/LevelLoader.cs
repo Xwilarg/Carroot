@@ -24,7 +24,9 @@ namespace GlobalGameJam2023.Level
                     if (DataManager.Instance.SaveData.LevelData.ContainsKey(LevelSelector.TargetLevel))
                     {
                         var go = Instantiate(_ghost, spawn[0].transform.position, Quaternion.identity);
-                        go.GetComponent<Ghost>().LoadData(DataManager.Instance.SaveData.LevelData[LevelSelector.TargetLevel].Replay);
+                        var ghost = go.GetComponent<Ghost>();
+                        ghost.LoadData(DataManager.Instance.SaveData.LevelData[LevelSelector.TargetLevel].Replay);
+                        _player.GetComponent<PlayerController>().Ghost = ghost;
                     }
                 }
             };

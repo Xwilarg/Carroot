@@ -20,6 +20,8 @@ namespace GlobalGameJam2023.Player
         private bool _isTryingToGoUp;
         private bool _canGoUp;
 
+        private bool _didStart;
+
         // Components
         private Rigidbody2D _rb;
         private SpriteRenderer _sr;
@@ -32,11 +34,12 @@ namespace GlobalGameJam2023.Player
         private List<Coordinate> _coordinates = new();
         private float _timeRef;
 
+        public Ghost Ghost { set; private get; }
+
         private void Awake()
         {
             _rb = GetComponent<Rigidbody2D>();
             _sr = GetComponent<SpriteRenderer>();
-            _timeRef = Time.unscaledTime; // TODO: Need to be moved to where the race really start
         }
 
         private void FixedUpdate()
@@ -44,6 +47,12 @@ namespace GlobalGameJam2023.Player
             if (GameMenu.Instance.DidGameEnded) // Game ended, ignore all inputs
             {
                 return;
+            }
+            if (!_didStart && _movX != 0f)
+            {
+                _timeRef = Time.unscaledTime;
+                Ghost?.StartGhost();
+                _didStart = true;
             }
             _rb.gravityScale = _canGoUp ? 0f : 1f;
             _rb.velocity = new Vector2(
