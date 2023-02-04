@@ -1,4 +1,5 @@
 using GlobalGameJam2023.Ability;
+using GlobalGameJam2023.Level;
 using GlobalGameJam2023.Menu;
 using GlobalGameJam2023.SO;
 using System;
@@ -56,8 +57,12 @@ namespace GlobalGameJam2023.Player
             if (!_didStart && _movX != 0f)
             {
                 _timeRef = Time.unscaledTime;
-                Ghost?.StartGhost();
+                if (Ghost != null)
+                {
+                    Ghost.StartGhost();
+                }
                 _didStart = true;
+                Timer.Instance.IsPlayerReady = true;
             }
             _rb.gravityScale = _canGoUp ? 0f : 1f;
             _rb.velocity = new Vector2(
