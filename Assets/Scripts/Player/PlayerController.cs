@@ -49,6 +49,10 @@ namespace GlobalGameJam2023.Player
             {
                 _canGoUp = true;
             }
+            else if (collision.CompareTag("FinishLine"))
+            {
+                // TODO: Victory
+            }
         }
 
         private void OnTriggerExit2D(Collider2D collision)
