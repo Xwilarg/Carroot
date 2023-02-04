@@ -1,4 +1,5 @@
 using GlobalGameJam2023.Ability;
+using GlobalGameJam2023.Level;
 using GlobalGameJam2023.Menu;
 using GlobalGameJam2023.SO;
 using System;
@@ -22,6 +23,8 @@ namespace GlobalGameJam2023.Player
         private bool _isTryingToGoUp;
         private bool _canGoUp;
 
+        private bool _didStart;
+
         // Components
         private Rigidbody2D _rb;
         private SpriteRenderer _sr;
@@ -37,11 +40,12 @@ namespace GlobalGameJam2023.Player
         //event death
         public static event PlayerControllerEventHandler death;
 
+        public Ghost Ghost { set; private get; }
+
         private void Awake()
         {
             _rb = GetComponent<Rigidbody2D>();
             _sr = GetComponent<SpriteRenderer>();
-            _timeRef = Time.unscaledTime; // TODO: Need to be moved to where the race really start
         }
 
         private void FixedUpdate()
@@ -49,6 +53,16 @@ namespace GlobalGameJam2023.Player
             if (GameMenu.Instance.DidGameEnded) // Game ended, ignore all inputs
             {
                 return;
+            }
+            if (!_didStart && _movX != 0f)
+            {
+                _timeRef = Time.unscaledTime;
+                if (Ghost != null)
+                {
+                    Ghost.StartGhost();
+                }
+                _didStart = true;
+                Timer.Instance.IsPlayerReady = true;
             }
             _rb.gravityScale = _canGoUp ? 0f : 1f;
             _rb.velocity = new Vector2(
@@ -128,7 +142,10 @@ namespace GlobalGameJam2023.Player
                         }
                         _lastLiana.Clear();
                         var down = Vector2.down;
-                        while (!Physics2D.OverlapCircle(e.Position + down, .5f, 1 << LayerMask.GetMask("Player"))) // As long as we can spawn liana we do so
+                        var ignoreLayer = (1 << LayerMask.NameToLayer("Player"));
+                        ignoreLayer |= (1 << LayerMask.NameToLayer("Projectile"));
+                        ignoreLayer = ~ignoreLayer;
+                        while (!Physics2D.OverlapCircle(e.Position + down, .5f, ignoreLayer)) // As long as we can spawn liana we do so
                         {
                             _lastLiana.Add(Instantiate(info.PrefabSpe, e.Position + down + Vector2.up * .5f, Quaternion.identity));
                             down += Vector2.down;

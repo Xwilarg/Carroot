@@ -20,11 +20,13 @@ namespace GlobalGameJam2023.Level
                 {
                     var spawn = GameObject.FindGameObjectsWithTag("Spawn");
                     Assert.AreEqual(1, spawn.Length, $"There should be only 1 spawn point per level by {spawn.Length} were found");
-                    Instantiate(_player, spawn[0].transform.position, Quaternion.identity);
+                    var player = Instantiate(_player, spawn[0].transform.position, Quaternion.identity);
                     if (DataManager.Instance.SaveData.LevelData.ContainsKey(LevelSelector.TargetLevel))
                     {
                         var go = Instantiate(_ghost, spawn[0].transform.position, Quaternion.identity);
-                        go.GetComponent<Ghost>().LoadData(DataManager.Instance.SaveData.LevelData[LevelSelector.TargetLevel].Replay);
+                        var ghost = go.GetComponent<Ghost>();
+                        ghost.LoadData(DataManager.Instance.SaveData.LevelData[LevelSelector.TargetLevel].Replay);
+                        player.GetComponent<PlayerController>().Ghost = ghost;
                     }
                 }
             };
