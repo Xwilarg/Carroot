@@ -1,4 +1,5 @@
 using GlobalGameJam2023.Ability;
+using GlobalGameJam2023.Menu;
 using GlobalGameJam2023.SO;
 using System;
 using System.Collections;
@@ -140,6 +141,14 @@ namespace GlobalGameJam2023.Player
             if (value.performed && _canUseAbility[1])
             {
                 FireProjectile(_info.AbilityTwo, 1);
+            }
+        }
+
+        public void Pause(InputAction.CallbackContext value)
+        {
+            if (value.performed)
+            {
+                PauseMenu.Instance.TogglePause();
             }
         }
         #endregion

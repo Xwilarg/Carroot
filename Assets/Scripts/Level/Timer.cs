@@ -1,4 +1,5 @@
-﻿using TMPro;
+﻿using GlobalGameJam2023.Menu;
+using TMPro;
 using UnityEngine;
 
 namespace GlobalGameJam2023.Level
@@ -12,8 +13,11 @@ namespace GlobalGameJam2023.Level
 
         private void Update()
         {
-            _timer += Time.deltaTime;
-            _timerText.text = $"{_timer:0.00}";
+            if (PauseMenu.Instance.IsGameActive)
+            {
+                _timer += Time.deltaTime;
+                _timerText.text = $"{_timer:0.00}";
+            }
         }
     }
 }
