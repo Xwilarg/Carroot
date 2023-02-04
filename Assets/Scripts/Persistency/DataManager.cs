@@ -44,6 +44,12 @@ namespace GlobalGameJam2023.Persistency
             File.WriteAllBytes("save.bin", Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(_saveData)));
         }
 
+        public void DeleteSaveFolder()
+        {
+            File.Delete("save.bin");
+            // TODO: popup or smth
+        }
+
         public void OpenSaveFolder() // Won't work in WebGL!
         {
             if (Application.platform != RuntimePlatform.WebGLPlayer)
