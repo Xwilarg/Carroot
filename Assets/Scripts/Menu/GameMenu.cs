@@ -1,5 +1,6 @@
 ﻿using GlobalGameJam2023.Level;
 using GlobalGameJam2023.Persistency;
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -35,7 +36,7 @@ namespace GlobalGameJam2023.Menu
             Time.timeScale = IsGameActive ? 1f : 0f;
         }
 
-        public void EndGame()
+        public void EndGame(IEnumerable<Coordinate> replay)
         {
             _endGameMenu.SetActive(true);
             _timerText.text = $"{_timer.TimerValue:0.00}";
@@ -45,12 +46,20 @@ namespace GlobalGameJam2023.Menu
                 var previous = DataManager.Instance.SaveData.LevelData[LevelSelector.TargetLevel].Time;
                 if (value < previous)
                 {
-                    DataManager.Instance.SaveData.LevelData[LevelSelector.TargetLevel].Time = value;
+                    DataManager.Instance.SaveData.LevelData[LevelSelector.TargetLevel] = new()
+                    {
+                        Time = value,
+                        Replay = replay
+                    };
                 }
             }
             else
             {
-                DataManager.Instance.SaveData.LevelData.Add(LevelSelector.TargetLevel, new() { Time = value });
+                DataManager.Instance.SaveData.LevelData.Add(LevelSelector.TargetLevel, new()
+                {
+                    Time = value,
+                    Replay = replay
+                });
             }
             DataManager.Instance.Save();
         }

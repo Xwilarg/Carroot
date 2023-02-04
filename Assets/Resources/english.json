@@ -14,5 +14,6 @@
     "resume": "Resume",
     "backToLevelSelection": "Back to Level Selection",
     "nextLevel": "Next Level",
-    "yourTime": "Your Time:"
+    "yourTime": "Your Time:",
+    "level": "Level"
 }

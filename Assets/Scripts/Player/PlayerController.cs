@@ -28,10 +28,15 @@ namespace GlobalGameJam2023.Player
         private bool[] _canUseAbility = new bool[2] { true, true };
         private readonly List<GameObject> _lastLiana = new();
 
+        // Ghost
+        private List<Coordinate> _coordinates = new();
+        private float _timeRef;
+
         private void Awake()
         {
             _rb = GetComponent<Rigidbody2D>();
             _sr = GetComponent<SpriteRenderer>();
+            _timeRef = Time.unscaledTime; // TODO: Need to be moved to where the race really start
         }
 
         private void FixedUpdate()
@@ -45,6 +50,12 @@ namespace GlobalGameJam2023.Player
                 x: _movX * _info.Speed * Time.fixedDeltaTime,
                 y: _canGoUp && _isTryingToGoUp ? _info.ClimbingSpeed * Time.fixedDeltaTime : _rb.velocity.y // Attempt to climb a liana if it's possible
             );
+            _coordinates.Add(new()
+            {
+                TimeSinceStart = Time.unscaledTime - _timeRef,
+                Position = transform.position,
+                Velocity = _rb.velocity
+            });
         }
 
         private void OnTriggerEnter2D(Collider2D collision)
@@ -55,7 +66,7 @@ namespace GlobalGameJam2023.Player
             }
             else if (collision.CompareTag("FinishLine"))
             {
-                GameMenu.Instance.EndGame();
+                GameMenu.Instance.EndGame(_coordinates);
             }
         }
 
