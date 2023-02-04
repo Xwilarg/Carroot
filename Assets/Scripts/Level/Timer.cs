@@ -13,7 +13,7 @@ namespace GlobalGameJam2023.Level
 
         public float TimerValue { private set; get; }
 
-        public bool IsPlayerReady { set; private get; }
+        public bool IsPlayerReady { set; get; }
 
         private void Awake()
         {
