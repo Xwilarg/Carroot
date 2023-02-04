@@ -14,10 +14,16 @@ namespace GlobalGameJam2023.Player
         [SerializeField]
         private PlayerInfo _info;
 
+        // Controls info
         private float _movX;
+        private bool _isTryingToGoUp;
+        private bool _canGoUp;
+
+        // Components
         private Rigidbody2D _rb;
         private SpriteRenderer _sr;
 
+        // Abilities management
         private bool[] _canUseAbility = new bool[2] { true, true };
         private readonly List<GameObject> _lastLiana = new();
 
@@ -29,7 +35,19 @@ namespace GlobalGameJam2023.Player
 
         private void FixedUpdate()
         {
-            _rb.velocity = new Vector2(_movX * _info.Speed * Time.fixedDeltaTime, _rb.velocity.y);
+            _rb.gravityScale = _canGoUp ? 0f : 1f;
+            _rb.velocity = new Vector2(
+                x: _movX * _info.Speed * Time.fixedDeltaTime,
+                y: _canGoUp && _isTryingToGoUp ? _info.ClimbingSpeed * Time.fixedDeltaTime : _rb.velocity.y // Attempt to climb a liana if it's possible
+            );
+        }
+
+        private void OnTriggerEnter2D(Collider2D collision)
+        {
+            if (collision.CompareTag("Liana"))
+            {
+                _canGoUp = true;
+            }
         }
 
         /// <summary>
@@ -59,19 +77,19 @@ namespace GlobalGameJam2023.Player
                 switch (info.Type)
                 {
                     case AbilityType.TELEPORT:
-                        transform.position = e.Position;
+                        transform.position = e.Position; // We just teleport the player at the impact position
                         break;
 
                     case AbilityType.DEPLOY_LIANA:
-                        foreach (var liana in _lastLiana)
+                        foreach (var liana in _lastLiana) // Remove all old instances of the previous liana
                         {
                             Destroy(liana);
                         }
                         _lastLiana.Clear();
                         var down = Vector2.down;
-                        while (!Physics2D.OverlapCircle(e.Position + down, .5f, 1 << LayerMask.GetMask("Player")))
+                        while (!Physics2D.OverlapCircle(e.Position + down, .5f, 1 << LayerMask.GetMask("Player"))) // As long as we can spawn liana we do so
                         {
-                            _lastLiana.Add(Instantiate(info.PrefabSpe, e.Position + down, Quaternion.identity));
+                            _lastLiana.Add(Instantiate(info.PrefabSpe, e.Position + down + Vector2.up * .5f, Quaternion.identity));
                             down += Vector2.down;
                         }
                         break;
@@ -86,7 +104,9 @@ namespace GlobalGameJam2023.Player
         #region Input System
         public void Move(InputAction.CallbackContext value)
         {
-            _movX = value.ReadValue<Vector2>().x;
+            var mov = value.ReadValue<Vector2>();
+            _movX = mov.x;
+            _isTryingToGoUp = mov.y > 0f;
 
             // Flip sprite depending of where we are going
             if (_movX > 0f)

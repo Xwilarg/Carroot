@@ -8,6 +8,10 @@ namespace GlobalGameJam2023.SO
         [Tooltip("Speed of the player")]
         public float Speed;
 
+        [Tooltip("Climbing speed of the player when trying to get up a liana")]
+        public float ClimbingSpeed;
+
+        [Tooltip("Abilities of the player")]
         public AbilityInfo AbilityOne, AbilityTwo;
     }
 }
