@@ -27,8 +27,6 @@ namespace GlobalGameJam2023.Level
 
         private void PlayerController_death(PlayerController sender)
         {
-            Debug.Log("StartCoroutine");
-
             gameMenu.Retry();
         }
 

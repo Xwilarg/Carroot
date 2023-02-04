@@ -1069,6 +1069,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _player: {fileID: 9017049287963654285, guid: 233d7e8f2f27ea348b6050a95123ee04, type: 3}
   _ghost: {fileID: 3251882590526137836, guid: 4ea7e677f8f88034aa9844a06050d560, type: 3}
+  gameMenu: {fileID: 1022028741}
 --- !u!114 &727874081
 MonoBehaviour:
   m_ObjectHideFlags: 0

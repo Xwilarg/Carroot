@@ -8,7 +8,7 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         spawn = GameObject.FindGameObjectsWithTag("Spawn")[0];
-        PlayerController.death += PlayerController_death;
+        //PlayerController.death += PlayerController_death;
     }
 
     private void PlayerController_death(PlayerController sender)
