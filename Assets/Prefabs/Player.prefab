@@ -261,6 +261,38 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 54c3837d-88df-41bf-863d-c5058e6e9b8f
     m_ActionName: Player/Ability1[/Keyboard/k]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 9017049287963654280}
+        m_TargetAssemblyTypeName: GlobalGameJam2023.Player.PlayerController, Assembly-CSharp
+        m_MethodName: AbilityTwo
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 81cc383c-a344-4b4f-8124-9ea7c9ea7e4a
+    m_ActionName: Player/Ability2[/Keyboard/l]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 9017049287963654280}
+        m_TargetAssemblyTypeName: GlobalGameJam2023.Player.PlayerController, Assembly-CSharp
+        m_MethodName: Pause
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 68eb5d6f-0c9a-4483-a480-fd993d171e08
+    m_ActionName: Player/Pause[/Keyboard/escape]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
