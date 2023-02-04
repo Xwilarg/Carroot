@@ -12,7 +12,7 @@ namespace GlobalGameJam2023.Menu
         public static GameMenu Instance { private set; get; }
 
         [SerializeField]
-        private GameObject _pauseMenu, _endGameMenu;
+        private GameObject _pauseMenu, _endGameMenu, _nextLevelButton;
 
         [SerializeField]
         private TMP_Text _timerText, _bestTimerText;
@@ -20,6 +20,10 @@ namespace GlobalGameJam2023.Menu
         private void Awake()
         {
             Instance = this;
+            if (LevelSelector.TargetLevel == LevelSelector.LastLevel)
+            {
+                _nextLevelButton.SetActive(false);
+            }
         }
 
         public void LoadMenu()
@@ -74,7 +78,7 @@ namespace GlobalGameJam2023.Menu
 
         public void LoadNextLevel()
         {
-            // TODO
+            SceneManager.LoadScene($"Level{LevelSelector.TargetLevel + 1}");
         }
 
         public bool IsGameActive => !_pauseMenu.activeInHierarchy && !DidGameEnded;
