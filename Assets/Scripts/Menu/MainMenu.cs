@@ -26,7 +26,7 @@ namespace GlobalGameJam2023.Menu
 
         public void LaunchGame()
         {
-            SceneManager.LoadScene("LevelSelector");
+            SceneManager.LoadScene("LevelSelect");
         }
 
         public void QuitGame()

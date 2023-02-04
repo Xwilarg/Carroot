@@ -66,6 +66,7 @@ namespace GlobalGameJam2023.Translation
                 {
                     tt.UpdateText();
                 }
+                DataManager.Instance.SaveData.Language = value;
                 DataManager.Instance.Save();
             }
             get

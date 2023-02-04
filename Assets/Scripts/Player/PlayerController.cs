@@ -1,4 +1,5 @@
 using GlobalGameJam2023.Ability;
+using GlobalGameJam2023.Level;
 using GlobalGameJam2023.Menu;
 using GlobalGameJam2023.SO;
 using System;
@@ -9,6 +10,8 @@ using UnityEngine.InputSystem;
 
 namespace GlobalGameJam2023.Player
 {
+    public delegate void PlayerControllerEventHandler(PlayerController sender);
+
     [RequireComponent(typeof(Rigidbody2D), typeof(SpriteRenderer))]
     public class PlayerController : MonoBehaviour
     {
@@ -20,6 +23,8 @@ namespace GlobalGameJam2023.Player
         private bool _isTryingToGoUp;
         private bool _canGoUp;
 
+        private bool _didStart;
+
         // Components
         private Rigidbody2D _rb;
         private SpriteRenderer _sr;
@@ -27,6 +32,15 @@ namespace GlobalGameJam2023.Player
         // Abilities management
         private bool[] _canUseAbility = new bool[2] { true, true };
         private readonly List<GameObject> _lastLiana = new();
+
+        // Ghost
+        private List<Coordinate> _coordinates = new();
+        private float _timeRef;
+        
+        //event death
+        public static event PlayerControllerEventHandler death;
+
+        public Ghost Ghost { set; private get; }
 
         private void Awake()
         {
@@ -36,11 +50,31 @@ namespace GlobalGameJam2023.Player
 
         private void FixedUpdate()
         {
+            if (GameMenu.Instance.DidGameEnded) // Game ended, ignore all inputs
+            {
+                return;
+            }
+            if (!_didStart && _movX != 0f)
+            {
+                _timeRef = Time.unscaledTime;
+                if (Ghost != null)
+                {
+                    Ghost.StartGhost();
+                }
+                _didStart = true;
+                Timer.Instance.IsPlayerReady = true;
+            }
             _rb.gravityScale = _canGoUp ? 0f : 1f;
             _rb.velocity = new Vector2(
                 x: _movX * _info.Speed * Time.fixedDeltaTime,
                 y: _canGoUp && _isTryingToGoUp ? _info.ClimbingSpeed * Time.fixedDeltaTime : _rb.velocity.y // Attempt to climb a liana if it's possible
             );
+            _coordinates.Add(new()
+            {
+                TimeSinceStart = Time.unscaledTime - _timeRef,
+                Position = new() { X = transform.position.x, Y = transform.position.y },
+                Velocity = new() { X = _rb.velocity.x, Y = _rb.velocity.y },
+            });
         }
 
         private void OnTriggerEnter2D(Collider2D collision)
@@ -51,7 +85,15 @@ namespace GlobalGameJam2023.Player
             }
             else if (collision.CompareTag("FinishLine"))
             {
-                // TODO: Victory
+                GameMenu.Instance.EndGame(_coordinates);
+            }
+        }
+
+        private void OnCollisionEnter2D(Collision2D collision)
+        {
+            if (collision.collider.CompareTag("Trap"))
+            {
+                Death();
             }
         }
 
@@ -100,7 +142,10 @@ namespace GlobalGameJam2023.Player
                         }
                         _lastLiana.Clear();
                         var down = Vector2.down;
-                        while (!Physics2D.OverlapCircle(e.Position + down, .5f, 1 << LayerMask.GetMask("Player"))) // As long as we can spawn liana we do so
+                        var ignoreLayer = (1 << LayerMask.NameToLayer("Player"));
+                        ignoreLayer |= (1 << LayerMask.NameToLayer("Projectile"));
+                        ignoreLayer = ~ignoreLayer;
+                        while (!Physics2D.OverlapCircle(e.Position + down, .5f, ignoreLayer)) // As long as we can spawn liana we do so
                         {
                             _lastLiana.Add(Instantiate(info.PrefabSpe, e.Position + down + Vector2.up * .5f, Quaternion.identity));
                             down += Vector2.down;
@@ -112,6 +157,11 @@ namespace GlobalGameJam2023.Player
             };
             Destroy(go, info.TimeBeforeDisappear);
             StartCoroutine(ReloadAbility(_info.AbilityOne, index));
+        }
+
+        private void Death()
+        {
+            death?.Invoke(this);
         }
 
         #region Input System
@@ -152,7 +202,7 @@ namespace GlobalGameJam2023.Player
         {
             if (value.performed)
             {
-                PauseMenu.Instance.TogglePause();
+                GameMenu.Instance.TogglePause();
             }
         }
         #endregion
