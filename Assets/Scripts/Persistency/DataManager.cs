@@ -9,6 +9,18 @@ namespace GlobalGameJam2023.Persistency
 {
     public class DataManager
     {
+        private readonly string _key = "凛と「戦え」 胸に掲げ　燐と「魂」燦け「愛」の弾丸鳴らし「歌え」ば今日が「始まる」笑っていこうよ！ね☆";
+
+        private string Encrypt(string s)
+        {
+            StringBuilder str = new();
+            for (var i = 0; i < s.Length; i++)
+            {
+                str.Append((char)(s[i] ^ _key[i % _key.Length]));
+            }
+            return str.ToString();
+        }
+
         private static DataManager _instance;
         public static DataManager Instance
         {
@@ -28,7 +40,7 @@ namespace GlobalGameJam2023.Persistency
                 {
                     if (File.Exists($"{Application.persistentDataPath}/save.bin"))
                     {
-                        _saveData = JsonConvert.DeserializeObject<SaveData>(Encoding.UTF8.GetString(File.ReadAllBytes($"{Application.persistentDataPath}/save.bin")));
+                        _saveData = JsonConvert.DeserializeObject<SaveData>(Encrypt(File.ReadAllText($"{Application.persistentDataPath}/save.bin")));
                     }
                     else
                     {
@@ -41,7 +53,7 @@ namespace GlobalGameJam2023.Persistency
 
         public void Save()
         {
-            File.WriteAllBytes($"{Application.persistentDataPath}/save.bin", Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(_saveData)));
+            File.WriteAllText($"{Application.persistentDataPath}/save.bin", Encrypt(JsonConvert.SerializeObject(_saveData)));
         }
 
         public void DeleteSaveFolder()
