@@ -15,6 +15,8 @@ namespace GlobalGameJam2023.Player
     [RequireComponent(typeof(Rigidbody2D), typeof(SpriteRenderer))]
     public class PlayerController : MonoBehaviour
     {
+        public static PlayerController Instance { private set; get; }
+
         [SerializeField]
         private PlayerInfo _info;
 
@@ -22,8 +24,6 @@ namespace GlobalGameJam2023.Player
         private float _movX;
         private bool _isTryingToGoUp;
         private bool _canGoUp;
-
-        private bool _didStart;
 
         // Components
         private Rigidbody2D _rb;
@@ -44,25 +44,26 @@ namespace GlobalGameJam2023.Player
 
         private void Awake()
         {
+            Instance = this;
             _rb = GetComponent<Rigidbody2D>();
             _sr = GetComponent<SpriteRenderer>();
         }
 
+        public void StartGame()
+        {
+            _timeRef = Time.unscaledTime;
+            if (Ghost != null)
+            {
+                Ghost.StartGhost();
+            }
+            Timer.Instance.IsPlayerReady = true;
+        }
+
         private void FixedUpdate()
         {
-            if (GameMenu.Instance.DidGameEnded) // Game ended, ignore all inputs
+            if (GameMenu.Instance.DidGameEnded || !Timer.Instance.IsPlayerReady) // Game ended, ignore all inputs
             {
                 return;
-            }
-            if (!_didStart && _movX != 0f)
-            {
-                _timeRef = Time.unscaledTime;
-                if (Ghost != null)
-                {
-                    Ghost.StartGhost();
-                }
-                _didStart = true;
-                Timer.Instance.IsPlayerReady = true;
             }
             _rb.gravityScale = _canGoUp ? 0f : 1f;
             _rb.velocity = new Vector2(
