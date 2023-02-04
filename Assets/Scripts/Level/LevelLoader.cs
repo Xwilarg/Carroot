@@ -12,10 +12,24 @@ namespace GlobalGameJam2023.Level
     {
         [SerializeField]
         private GameObject _player, _ghost;
+        [SerializeField] private GameMenu gameMenu;
 
         private void Awake()
         {
             StartCoroutine(WaitAndSpawn());
+        }
+
+        private void Start()
+        {
+            PlayerController.death += PlayerController_death;
+
+        }
+
+        private void PlayerController_death(PlayerController sender)
+        {
+            Debug.Log("StartCoroutine");
+
+            gameMenu.Retry();
         }
 
         private IEnumerator WaitAndSpawn()

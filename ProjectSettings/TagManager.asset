@@ -8,6 +8,7 @@ TagManager:
   - Spawn
   - FinishLine
   - Trap
+  - MovingPlatform
   layers:
   - Default
   - TransparentFX
