@@ -1,0 +1,16 @@
+{
+    "play": "Play",
+    "howToPlay": "How To Play",
+    "credits": "Credits",
+    "options": "Options",
+    "quit": "Quit",
+    "gameDesign": "Game Design",
+    "programming": "Programming",
+    "musics": "Musics",
+    "sounds": "Sounds",
+    "openSavefile": "Open Save Folder",
+    "deleteSavefile": "Delete All Saves",
+    "pause": "Game is Paused",
+    "resume": "Resume",
+    "backToMenu": "Back to Menu"
+}
