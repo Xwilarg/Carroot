@@ -17,7 +17,7 @@ namespace GlobalGameJam2023.Player
 {
     public delegate void PlayerControllerEventHandler(PlayerController sender);
 
-    [RequireComponent(typeof(Rigidbody2D), typeof(SpriteRenderer))]
+    [RequireComponent(typeof(Rigidbody2D))]
     public class PlayerController : MonoBehaviour
     {
         public static PlayerController Instance { private set; get; }
@@ -28,6 +28,8 @@ namespace GlobalGameJam2023.Player
         [SerializeField] private Transform rightFoot;
         [SerializeField] LayerMask colisionRaycastFoot;
         [SerializeField] private float distanceRaycast = 0.5f;
+        [SerializeField] private SpriteRenderer sprite;
+        [SerializeField] private Animator animatorController;
 
         // Controls info
         private Vector2 _mov;
@@ -61,8 +63,9 @@ namespace GlobalGameJam2023.Player
             Instance = this;
             _rb = GetComponent<Rigidbody2D>();
             _baseGravityScale = _rb.gravityScale;
-            _sr = GetComponent<SpriteRenderer>();
-            _anim = GetComponent<Animator>();
+            Debug.Log(sprite.name);
+            _sr = sprite;
+            _anim = animatorController;
             _canUseAbilityMax = new[] { _info.AbilityOne, _info.AbilityTwo, _info.AbilityBoss }.Select(x => x.ReloadTime).ToArray();
             _abilityLeft = new[] { _info.Levels[LevelSelector.TargetLevel - 1].NumberSkillTeleportation, _info.Levels[LevelSelector.TargetLevel - 1].NumberSkillLiana, 0 };
             for (int i = 0; i < _abilityLeft.Length; i++)
@@ -103,21 +106,24 @@ namespace GlobalGameJam2023.Player
 
         private IEnumerator WaitCoroutine(Action<CollisionEventArgs> callBack, float seconds, CollisionEventArgs e = null)
         {
-            yield return new WaitForSeconds(seconds);
+            //yield return new WaitForSeconds(seconds);
             callBack(e);
             yield return null;
         }
 
         private void DoTP(CollisionEventArgs e)
         {
-            initScale = transform.lossyScale;
+            //transform.position = e.GameObjectPosition;
+
+            initScale = sprite.transform.lossyScale;
             float duration = 0.2f;
 
-            transform.DOScale(0f, duration);
-            transform.DORotate(Vector3.one * 360f, duration).OnComplete(() => {
+            sprite.transform.transform.DOScale(0f, duration);
+            sprite.transform.transform.DORotate(Vector3.one * 360f, duration).OnComplete(() =>
+            {
                 transform.position = e.GameObjectPosition;
-                transform.DORotate(Vector3.zero, 0.2f);
-                transform.DOScale(initScale, 0.2f);
+                sprite.transform.DORotate(Vector3.zero, 0.2f);
+                sprite.transform.DOScale(initScale, 0.2f);
             });
 
         }
@@ -131,6 +137,11 @@ namespace GlobalGameJam2023.Player
                     _canUseAbility[i] -= Time.deltaTime;
                     GameMenu.Instance.SetSkillCooldown(i, Mathf.Clamp01(_canUseAbility[i] / _canUseAbilityMax[i]));
                 }
+            }
+
+            if (transform.position.y <= -_info.maxYBeforeDeath)
+            {
+                Death();
             }
         }
 

@@ -17,7 +17,7 @@ MonoBehaviour:
   AbilityOne: {fileID: 11400000, guid: cea5ade9cd0d6a04e8f64b3d9261426c, type: 2}
   AbilityTwo: {fileID: 11400000, guid: cfb0b01ab97360d4cb848fa5fcb0b7c3, type: 2}
   AbilityBoss: {fileID: 11400000, guid: cac724c200bce4648a533e80fd93a6ea, type: 2}
-  maxYBeforeDeath: 50
+  maxYBeforeDeath: 500
   Levels:
   - {fileID: 11400000, guid: 2f55fbf0a66f43747a463da7905a9b18, type: 2}
   - {fileID: 11400000, guid: 6aa25b38f6567c64e984122fc4ad7474, type: 2}
