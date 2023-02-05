@@ -255,6 +255,14 @@ namespace GlobalGameJam2023.Player
                 GameMenu.Instance.TogglePause();
             }
         }
+
+        public void Restart(InputAction.CallbackContext value)
+        {
+            if (value.performed)
+            {
+                SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+            }
+        }
         #endregion
     }
 }
