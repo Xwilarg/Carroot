@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f2f6dfb141ebe8c4186941cfa3020858, type: 3}
   m_Name: GrainThrow
   m_EditorClassIdentifier: 
-  Prefab: {fileID: 4599850309148977871, guid: 39ebd38ab803c8047b61201a98dfa331, type: 3}
+  Prefab: {fileID: 4599850309148977871, guid: e5173d325489db64c96460467a98d386, type: 3}
   PrefabSpe: {fileID: 0}
   ReloadTime: 1
   ThrowDirection: {x: 1, y: 1}
