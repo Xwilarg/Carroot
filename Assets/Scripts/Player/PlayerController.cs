@@ -86,36 +86,6 @@ namespace GlobalGameJam2023.Player
                 Position = new() { X = transform.position.x, Y = transform.position.y },
                 Velocity = new() { X = _rb.velocity.x, Y = _rb.velocity.y },
             });
-
-            RaycastHit2D hit;
-            ContactFilter2D contactFilter;
-
-            RaycastHit2D[] hitLeft = Physics2D.RaycastAll(transform.position, -Vector3.up, distanceRaycast);
-            RaycastHit2D[] hitRight = Physics2D.RaycastAll(transform.position, -Vector3.up, distanceRaycast);
-
-            for (int i = 0; i < hitLeft.Length; i++)
-            {
-                if (hitLeft[i].collider != null && hitLeft[i].collider.CompareTag("MovingPlatform"))
-                {
-                    //transform.SetParent(hitLeft[i].transform);
-                    Debug.Log(hitLeft[i].collider.name);
-                }
-            }
-
-            for (int i = 0; i < hitRight.Length; i++)
-            {
-                if (hitRight[i].collider != null && hitRight[i].collider.CompareTag("MovingPlatform"))
-                {
-                    //transform.SetParent(hitRight[i].transform);
-                    Debug.Log(hitRight[i].collider.name);
-                }
-            }
-
-
-
-
-            Debug.DrawRay(leftFoot.position, -Vector3.up * distanceRaycast, Color.red, 0.1f);
-            Debug.DrawRay(rightFoot.position, -Vector3.up * distanceRaycast, Color.red, 0.1f);
         }
 
         private void Update()
@@ -195,6 +165,7 @@ namespace GlobalGameJam2023.Player
                         var down = Vector2.down;
                         var ignoreLayer = (1 << LayerMask.NameToLayer("Player"));
                         ignoreLayer |= (1 << LayerMask.NameToLayer("Projectile"));
+                        ignoreLayer |= (1 << LayerMask.NameToLayer("Rabbit"));
                         ignoreLayer = ~ignoreLayer;
                         while (!Physics2D.OverlapCircle(e.Position + down, .1f, ignoreLayer)) // As long as we can spawn liana we do so
                         {
