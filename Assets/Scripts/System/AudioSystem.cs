@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using GlobalGameJam2023.Persistency;
+using UnityEngine;
 
 namespace GlobalGameJam2023.System 
 {
@@ -16,6 +17,9 @@ namespace GlobalGameJam2023.System
             {
                 Instance = this;
                 DontDestroyOnLoad(gameObject);
+                _soundsSource.volume = DataManager.Instance.SaveData.SoundVolume;
+                _footstepSource.volume = DataManager.Instance.SaveData.SoundVolume;
+                _musicSource.volume = DataManager.Instance.SaveData.MusicVolume;
             }
             else
             {
