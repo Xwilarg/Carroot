@@ -18,7 +18,7 @@ namespace GlobalGameJam2023.Boss
         {
             _sr.enabled = false;
             IsActive = false;
-            yield return new WaitForSeconds(3f);
+            yield return new WaitForSeconds(8f);
             _sr.enabled = true;
             IsActive = true;
         }
