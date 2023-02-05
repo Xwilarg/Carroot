@@ -1,4 +1,5 @@
 using GlobalGameJam2023.Ability;
+using GlobalGameJam2023.Boss;
 using GlobalGameJam2023.Level;
 using GlobalGameJam2023.Menu;
 using GlobalGameJam2023.SO;
@@ -36,7 +37,7 @@ namespace GlobalGameJam2023.Player
         private Animator _anim;
 
         // Abilities management
-        private float[] _canUseAbility = new float[2] { 0f, 0f };
+        private float[] _canUseAbility = new float[3] { 0f, 0f, 0f };
         private int[] _abilityLeft;
         private float[] _canUseAbilityMax;
         private readonly List<GameObject> _lastLiana = new();
@@ -47,6 +48,9 @@ namespace GlobalGameJam2023.Player
 
         public Ghost Ghost { set; private get; }
 
+        [SerializeField]
+        private GameObject _powerupBoss;
+
         private float _baseGravityScale;
 
         private void Awake()
@@ -56,8 +60,8 @@ namespace GlobalGameJam2023.Player
             _baseGravityScale = _rb.gravityScale;
             _sr = GetComponent<SpriteRenderer>();
             _anim = GetComponent<Animator>();
-            _canUseAbilityMax = new[] { _info.AbilityOne, _info.AbilityTwo }.Select(x => x.ReloadTime).ToArray();
-            _abilityLeft = new[] { _info.Levels[LevelSelector.TargetLevel - 1].NumberSkillTeleportation, _info.Levels[LevelSelector.TargetLevel - 1].NumberSkillLiana };
+            _canUseAbilityMax = new[] { _info.AbilityOne, _info.AbilityTwo, _info.AbilityBoss }.Select(x => x.ReloadTime).ToArray();
+            _abilityLeft = new[] { _info.Levels[LevelSelector.TargetLevel - 1].NumberSkillTeleportation, _info.Levels[LevelSelector.TargetLevel - 1].NumberSkillLiana, 0 };
             for (int i = 0; i < _abilityLeft.Length; i++)
             {
                 GameMenu.Instance.SetSkillLeft(i, _abilityLeft[i]);
@@ -106,6 +110,12 @@ namespace GlobalGameJam2023.Player
             }
         }
 
+        public void Win()
+        {
+            _rb.velocity = Vector2.zero;
+            GameMenu.Instance.EndGame(_coordinates);
+        }
+
         private void OnTriggerEnter2D(Collider2D collision)
         {
             if (collision.CompareTag("Liana"))
@@ -114,8 +124,17 @@ namespace GlobalGameJam2023.Player
             }
             else if (collision.CompareTag("FinishLine"))
             {
-                _rb.velocity = Vector2.zero;
-                GameMenu.Instance.EndGame(_coordinates);
+                Win();
+            }
+            else if (collision.CompareTag("Powerup"))
+            {
+                var powerup = collision.GetComponent<WaitAndRespawn>();
+                if (powerup.IsActive)
+                {
+                    _abilityLeft[2]++;
+                    GameMenu.Instance.SetSkillLeft(2, _abilityLeft[2]);
+                    StartCoroutine(powerup.WaitAndRespawnEnum());
+                }
             }
         }
 
@@ -185,6 +204,9 @@ namespace GlobalGameJam2023.Player
                         }
                         break;
 
+                    case AbilityType.BOSS:
+                        break;
+
                     default: throw new NotImplementedException();
                 }
             };
@@ -245,6 +267,14 @@ namespace GlobalGameJam2023.Player
             if (value.performed && _canUseAbility[1] <= 0f && Timer.Instance.IsPlayerReady && _abilityLeft[1] > 0)
             {
                 FireProjectile(_info.AbilityTwo, 1);
+            }
+        }
+
+        public void AbilityThree(InputAction.CallbackContext value)
+        {
+            if (value.performed && _canUseAbility[2] <= 0f && Timer.Instance.IsPlayerReady && _abilityLeft[2] > 0)
+            {
+                FireProjectile(_info.AbilityBoss, 2);
             }
         }
 

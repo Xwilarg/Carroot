@@ -41,6 +41,10 @@ namespace GlobalGameJam2023.Menu
             {
                 _nextLevelButton.SetActive(false);
             }
+            if (LevelSelector.TargetLevel != 5)
+            {
+                _skillCooldown[2].transform.parent.gameObject.SetActive(false);
+            }
         }
 
         public void ResumeTimeScale()
