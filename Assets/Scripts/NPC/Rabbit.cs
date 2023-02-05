@@ -11,11 +11,13 @@ namespace GlobalGameJam2023.NPC
         public GameObject Target { set; private get; }
         private Rigidbody2D _rb;
         private SpriteRenderer _sr;
+        private Animator _anim;
 
         private void Awake()
         {
             _rb = GetComponent<Rigidbody2D>();
             _sr = GetComponent<SpriteRenderer>();
+            _anim = GetComponent<Animator>();
         }
 
         private void FixedUpdate()
@@ -29,6 +31,15 @@ namespace GlobalGameJam2023.NPC
 
                 }
                 _rb.velocity = new Vector2(x * Time.deltaTime * _info.Speed, _rb.velocity.y);
+                if (x > 0f)
+                {
+                    _sr.flipX = false;
+                }
+                else if (x < 0f)
+                {
+                    _sr.flipX = true;
+                }
+                _anim.SetBool("IsWalking", x != 0f);
             }
         }
     }

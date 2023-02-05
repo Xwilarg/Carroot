@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 8411580498465121216}
   - component: {fileID: 3655708522347101071}
   - component: {fileID: 8012730802213527027}
-  - component: {fileID: 6692882339834344815}
   m_Layer: 0
   m_Name: Main Camera (1)
   m_TagString: MainCamera
@@ -44,7 +43,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 1
-  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
+  m_BackGroundColor: {r: 0.39215687, g: 0.56078434, b: 0.8235294, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -119,26 +118,6 @@ MonoBehaviour:
   m_CameraActivatedEvent:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &6692882339834344815
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 577588073047835266}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6a160d838ff8b4b4693ac20007e008c7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_AssetsPPU: 32
-  m_RefResolutionX: 320
-  m_RefResolutionY: 180
-  m_UpscaleRT: 1
-  m_PixelSnapping: 0
-  m_CropFrameX: 0
-  m_CropFrameY: 0
-  m_StretchFill: 0
 --- !u!1 &3718895740233484912
 GameObject:
   m_ObjectHideFlags: 0
@@ -211,7 +190,6 @@ GameObject:
   m_Component:
   - component: {fileID: 3707840234941941278}
   - component: {fileID: 5559646843194677916}
-  - component: {fileID: 3669429623679322688}
   m_Layer: 0
   m_Name: CM vcam1
   m_TagString: Untagged
@@ -274,18 +252,6 @@ MonoBehaviour:
         m_Calls: []
   m_LegacyBlendHint: 0
   m_ComponentOwner: {fileID: 125270594135891744}
---- !u!114 &3669429623679322688
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7380165487680720012}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1a8a05de0ac134f4f9d01bef6b9da077, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &7599081867748547316
 GameObject:
   m_ObjectHideFlags: 0
@@ -569,7 +535,7 @@ SpriteRenderer:
   m_SortingLayerID: 291307367
   m_SortingLayer: 1
   m_SortingOrder: 1
-  m_Sprite: {fileID: 21300000, guid: 1d32d62df2d0c614bbced95c1a7ef59e, type: 3}
+  m_Sprite: {fileID: 21300000, guid: d6b124beaad712a49bbe55697efe93f2, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0

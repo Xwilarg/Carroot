@@ -13,5 +13,8 @@ namespace GlobalGameJam2023.SO
 
         [Tooltip("Abilities of the player")]
         public AbilityInfo AbilityOne, AbilityTwo;
+
+        [Tooltip("when the player reaches a certain height in it he dies")]
+        public float maxYBeforeDeath = 50f;
     }
 }

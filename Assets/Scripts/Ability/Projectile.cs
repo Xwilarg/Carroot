@@ -11,7 +11,7 @@ namespace GlobalGameJam2023.Ability
         {
             if (collision.enabled) // Platforms still call this methods even when you shoot from below
             {
-                OnCollision?.Invoke(this, new(collision.contacts[0].point));
+                OnCollision?.Invoke(this, new(collision.contacts[0].point, transform.position));
                 Destroy(gameObject);
             }
         }
