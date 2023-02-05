@@ -58,8 +58,8 @@ namespace GlobalGameJam2023.Persistency
 
         public void DeleteSaveFolder()
         {
-            File.Delete("save.bin");
-            // TODO: popup or smth
+            _saveData = new();
+            File.Delete($"{Application.persistentDataPath}/save.bin");
         }
 
         public void OpenSaveFolder() // Won't work in WebGL!
