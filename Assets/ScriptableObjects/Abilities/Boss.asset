@@ -15,7 +15,7 @@ MonoBehaviour:
   Prefab: {fileID: 4599850309148977871, guid: 0a592cab207dbd04aa8f0adba8df1fde, type: 3}
   PrefabSpe: {fileID: 0}
   ReloadTime: 5
-  ThrowDirection: {x: 1, y: 0}
+  ThrowDirection: {x: 1, y: 0.2}
   ThrowForce: 50
   TimeBeforeDisappear: 5
   Type: 2
