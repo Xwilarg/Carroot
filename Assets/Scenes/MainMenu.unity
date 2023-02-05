@@ -483,12 +483,10 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Graphics
+  m_text: '{graphics}
 
 
-    Sound
-
-    Design'
+    {soundDesign}'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: ac2510a39c1ff354b86ee169fd0207bb, type: 2}
   m_sharedMaterial: {fileID: 2219875541549299070, guid: ac2510a39c1ff354b86ee169fd0207bb, type: 2}
@@ -2396,17 +2394,13 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'UI
-
-    Integration
+  m_text: '{uiIntegration}
 
 
-    Coding
+    {coding}
 
 
-    UX
-
-    Design'
+    {uxDesign}'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: ac2510a39c1ff354b86ee169fd0207bb, type: 2}
   m_sharedMaterial: {fileID: 2219875541549299070, guid: ac2510a39c1ff354b86ee169fd0207bb, type: 2}
@@ -4340,22 +4334,16 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Game
-
-    Design
+  m_text: '{gameDesign}
 
 
-    Level
-
-    Design
+    {levelDesign}
 
 
-    Producing
+    {producing}
 
 
-    UI
-
-    Design'
+    {uiDesign}'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: ac2510a39c1ff354b86ee169fd0207bb, type: 2}
   m_sharedMaterial: {fileID: 2219875541549299070, guid: ac2510a39c1ff354b86ee169fd0207bb, type: 2}
@@ -9500,15 +9488,13 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'UI
-
-    Integration
+  m_text: '{uiIntegration}
 
 
-    Graphics
+    {graphics}
 
 
-    Animation'
+    {animation}'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: ac2510a39c1ff354b86ee169fd0207bb, type: 2}
   m_sharedMaterial: {fileID: 2219875541549299070, guid: ac2510a39c1ff354b86ee169fd0207bb, type: 2}
@@ -9643,7 +9629,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Coding
+  m_text: '{coding}'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: ac2510a39c1ff354b86ee169fd0207bb, type: 2}
   m_sharedMaterial: {fileID: 2219875541549299070, guid: ac2510a39c1ff354b86ee169fd0207bb, type: 2}
