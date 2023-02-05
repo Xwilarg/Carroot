@@ -34,6 +34,8 @@ namespace GlobalGameJam2023.Player
         [SerializeField] private AudioClip _throwLianaSound;
         [SerializeField] private AudioClip _teleportSound;
 
+        [SerializeField] private GameObject particleSystemTp = default;
+
         // Controls info
         private Vector2 _mov;
         private int _canGoUp;
@@ -124,6 +126,9 @@ namespace GlobalGameJam2023.Player
             sprite.transform.transform.DORotate(Vector3.one * 360f, duration).OnComplete(() =>
             {
                 transform.position = e.GameObjectPosition;
+
+                Instantiate(particleSystemTp, transform.position, Quaternion.identity);
+
                 sprite.transform.DORotate(Vector3.zero, 0.2f);
                 sprite.transform.DOScale(initScale, 0.2f);
             });
