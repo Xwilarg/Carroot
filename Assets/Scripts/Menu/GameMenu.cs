@@ -21,9 +21,17 @@ namespace GlobalGameJam2023.Menu
         [SerializeField]
         private Image[] _skillCooldown;
 
+        [SerializeField]
+        private TMP_Text[] _skillLeft;
+
         public void SetSkillCooldown(int index, float v)
         {
             _skillCooldown[index].rectTransform.sizeDelta = new(_skillCooldown[index].rectTransform.sizeDelta.x, v * 100f);
+        }
+
+        public void SetSkillLeft(int index, int value)
+        {
+            _skillLeft[index].text = $"x{value}";
         }
 
         private void Awake()
@@ -92,7 +100,8 @@ namespace GlobalGameJam2023.Menu
 
         public void LoadNextLevel()
         {
-            SceneManager.LoadScene($"Level{LevelSelector.TargetLevel + 1}");
+            LevelSelector.TargetLevel++;
+            SceneManager.LoadScene("Main");
         }
 
         public bool IsGameActive => !_pauseMenu.activeInHierarchy && !DidGameEnded;

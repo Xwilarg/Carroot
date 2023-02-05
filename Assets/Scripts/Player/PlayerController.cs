@@ -37,6 +37,7 @@ namespace GlobalGameJam2023.Player
 
         // Abilities management
         private float[] _canUseAbility = new float[2] { 0f, 0f };
+        private int[] _abilityLeft;
         private float[] _canUseAbilityMax;
         private readonly List<GameObject> _lastLiana = new();
 
@@ -56,6 +57,11 @@ namespace GlobalGameJam2023.Player
             _sr = GetComponent<SpriteRenderer>();
             _anim = GetComponent<Animator>();
             _canUseAbilityMax = new[] { _info.AbilityOne, _info.AbilityTwo }.Select(x => x.ReloadTime).ToArray();
+            _abilityLeft = new[] { _info.Levels[LevelSelector.TargetLevel - 1].NumberSkillTeleportation, _info.Levels[LevelSelector.TargetLevel].NumberSkillLiana };
+            for (int i = 0; i < _abilityLeft.Length; i++)
+            {
+                GameMenu.Instance.SetSkillLeft(i, _abilityLeft[i]);
+            }
         }
 
         public void StartGame()
@@ -92,8 +98,11 @@ namespace GlobalGameJam2023.Player
         {
             for (int i = 0; i < _canUseAbility.Length; i++)
             {
-                _canUseAbility[i] -= Time.deltaTime;
-                GameMenu.Instance.SetSkillCooldown(i, Mathf.Clamp01(_canUseAbility[i] / _canUseAbilityMax[i]));
+                if (_abilityLeft[i] > 0)
+                {
+                    _canUseAbility[i] -= Time.deltaTime;
+                    GameMenu.Instance.SetSkillCooldown(i, Mathf.Clamp01(_canUseAbility[i] / _canUseAbilityMax[i]));
+                }
             }
         }
 
@@ -166,6 +175,7 @@ namespace GlobalGameJam2023.Player
                         var ignoreLayer = (1 << LayerMask.NameToLayer("Player"));
                         ignoreLayer |= (1 << LayerMask.NameToLayer("Projectile"));
                         ignoreLayer |= (1 << LayerMask.NameToLayer("Rabbit"));
+                        ignoreLayer |= (1 << LayerMask.NameToLayer("RabbitRadar"));
                         ignoreLayer = ~ignoreLayer;
                         while (!Physics2D.OverlapCircle(e.Position + down, .1f, ignoreLayer)) // As long as we can spawn liana we do so
                         {
@@ -179,6 +189,12 @@ namespace GlobalGameJam2023.Player
             };
             Destroy(go, info.TimeBeforeDisappear);
             _canUseAbility[index] = _canUseAbilityMax[index];
+            _abilityLeft[index]--;
+            GameMenu.Instance.SetSkillLeft(index, _abilityLeft[index]);
+            if (_abilityLeft[index] == 0)
+            {
+                GameMenu.Instance.SetSkillCooldown(index, 0f);
+            }
         }
 
         private void Death()
@@ -217,7 +233,7 @@ namespace GlobalGameJam2023.Player
 
         public void AbilityOne(InputAction.CallbackContext value)
         {
-            if (value.performed && _canUseAbility[0] <= 0f && Timer.Instance.IsPlayerReady)
+            if (value.performed && _canUseAbility[0] <= 0f && Timer.Instance.IsPlayerReady && _abilityLeft[0] > 0)
             {
                 FireProjectile(_info.AbilityOne, 0);
             }
@@ -225,7 +241,7 @@ namespace GlobalGameJam2023.Player
 
         public void AbilityTwo(InputAction.CallbackContext value)
         {
-            if (value.performed && _canUseAbility[1] <= 0f && Timer.Instance.IsPlayerReady)
+            if (value.performed && _canUseAbility[1] <= 0f && Timer.Instance.IsPlayerReady && _abilityLeft[1] > 0)
             {
                 FireProjectile(_info.AbilityTwo, 1);
             }
