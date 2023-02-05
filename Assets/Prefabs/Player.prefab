@@ -118,6 +118,37 @@ MonoBehaviour:
   m_CameraActivatedEvent:
     m_PersistentCalls:
       m_Calls: []
+--- !u!1 &1879381859137332142
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7975345919766878363}
+  m_Layer: 7
+  m_Name: LocationUp
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7975345919766878363
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1879381859137332142}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.76, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 9017049287963654283}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2366516400548390829
 GameObject:
   m_ObjectHideFlags: 0
@@ -279,6 +310,37 @@ Transform:
   m_GameObject: {fileID: 5192210138580941799}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0.208, y: -1, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 9017049287963654283}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &7027786410912994764
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2094133867542842514}
+  m_Layer: 7
+  m_Name: LocationDown
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2094133867542842514
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7027786410912994764}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: -0.8, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -597,6 +659,8 @@ Transform:
   - {fileID: 3919509180645207921}
   - {fileID: 4689226141589725461}
   - {fileID: 4696222135879274908}
+  - {fileID: 7975345919766878363}
+  - {fileID: 2094133867542842514}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -686,7 +750,10 @@ MonoBehaviour:
   _throwNutSound: {fileID: 8300000, guid: 5991e98d79371654fa5c9a3283181c5c, type: 3}
   _throwLianaSound: {fileID: 8300000, guid: 52b79255c147e9d4582323362182a8bf, type: 3}
   _teleportSound: {fileID: 8300000, guid: b67afee473bbd6f42b315041370677b4, type: 3}
+  locationUp: {fileID: 7975345919766878363}
+  locationDown: {fileID: 2094133867542842514}
   particleSystemTp: {fileID: 7734755202008211385, guid: c8f1e8fd87f6de64bb9a14dc43e94a15, type: 3}
+  particleSystemLiana: {fileID: 1123753321476652240, guid: 28b0026ef840cf94ea22f29c2434e191, type: 3}
   _powerupBoss: {fileID: 0}
 --- !u!114 &9017049287963654279
 MonoBehaviour:
