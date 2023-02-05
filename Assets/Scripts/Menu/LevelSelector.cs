@@ -14,7 +14,7 @@ namespace GlobalGameJam2023.Menu
 
         private void Awake()
         {
-            for (int i = 0; i < LastLevel; i++)
+            for (int i = 0; i < LastLevel - 1; i++)
             {
                 if (!DataManager.Instance.SaveData.LevelData.ContainsKey(i + 1) || DataManager.Instance.SaveData.LevelData[i + 1].Time == 0)
                 {
