@@ -184,7 +184,7 @@ namespace GlobalGameJam2023.Player
                 switch (info.Type)
                 {
                     case AbilityType.TELEPORT:
-                        transform.position = e.Position; // We just teleport the player at the impact position
+                        transform.position = e.GameObjectPosition; // We just teleport the player at the projectile position
                         break;
 
                     case AbilityType.DEPLOY_LIANA:
