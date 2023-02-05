@@ -297,7 +297,7 @@ namespace GlobalGameJam2023.Player
             if (value.performed && _canUseAbility[0] <= 0f && Timer.Instance.IsPlayerReady && _abilityLeft[0] > 0)
             {
                 FireProjectile(_info.AbilityOne, 0);
-                AudioSystem.Instance.PlaySound(_throwNutSound);
+                AudioSystem.Instance.PlaySound(_throwNutSound, 0.5f);
             }
         }
 
@@ -306,7 +306,7 @@ namespace GlobalGameJam2023.Player
             if (value.performed && _canUseAbility[1] <= 0f && Timer.Instance.IsPlayerReady && _abilityLeft[1] > 0)
             {
                 FireProjectile(_info.AbilityTwo, 1);
-                AudioSystem.Instance.PlaySound(_throwLianaSound, 0.7f);
+                AudioSystem.Instance.PlaySound(_throwLianaSound, 0.4f);
             }
         }
 
