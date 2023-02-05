@@ -1,3 +1,4 @@
+using DG.Tweening;
 using GlobalGameJam2023.Ability;
 using GlobalGameJam2023.Boss;
 using GlobalGameJam2023.Level;
@@ -5,6 +6,7 @@ using GlobalGameJam2023.Menu;
 using GlobalGameJam2023.SO;
 using GlobalGameJam2023.System;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -52,6 +54,7 @@ namespace GlobalGameJam2023.Player
         private GameObject _powerupBoss;
 
         private float _baseGravityScale;
+        private Vector3 initScale;
 
         private void Awake()
         {
@@ -96,6 +99,27 @@ namespace GlobalGameJam2023.Player
                 Position = new() { X = transform.position.x, Y = transform.position.y },
                 Velocity = new() { X = _rb.velocity.x, Y = _rb.velocity.y },
             });
+        }
+
+        private IEnumerator WaitCoroutine(Action<CollisionEventArgs> callBack, float seconds, CollisionEventArgs e = null)
+        {
+            yield return new WaitForSeconds(seconds);
+            callBack(e);
+            yield return null;
+        }
+
+        private void DoTP(CollisionEventArgs e)
+        {
+            initScale = transform.lossyScale;
+            float duration = 0.2f;
+
+            transform.DOScale(0f, duration);
+            transform.DORotate(Vector3.one * 360f, duration).OnComplete(() => {
+                transform.position = e.GameObjectPosition;
+                transform.DORotate(Vector3.zero, 0.2f);
+                transform.DOScale(initScale, 0.2f);
+            });
+
         }
 
         private void Update()
@@ -182,7 +206,8 @@ namespace GlobalGameJam2023.Player
                 switch (info.Type)
                 {
                     case AbilityType.TELEPORT:
-                        transform.position = e.GameObjectPosition; // We just teleport the player at the projectile position
+                        //transform.position = e.GameObjectPosition; // We just teleport the player at the projectile position
+                        StartCoroutine(WaitCoroutine(DoTP, 0f, e));
                         break;
 
                     case AbilityType.DEPLOY_LIANA:
