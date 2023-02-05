@@ -57,7 +57,7 @@ namespace GlobalGameJam2023.Player
             _sr = GetComponent<SpriteRenderer>();
             _anim = GetComponent<Animator>();
             _canUseAbilityMax = new[] { _info.AbilityOne, _info.AbilityTwo }.Select(x => x.ReloadTime).ToArray();
-            _abilityLeft = new[] { _info.Levels[LevelSelector.TargetLevel - 1].NumberSkillTeleportation, _info.Levels[LevelSelector.TargetLevel].NumberSkillLiana };
+            _abilityLeft = new[] { _info.Levels[LevelSelector.TargetLevel - 1].NumberSkillTeleportation, _info.Levels[LevelSelector.TargetLevel - 1].NumberSkillLiana };
             for (int i = 0; i < _abilityLeft.Length; i++)
             {
                 GameMenu.Instance.SetSkillLeft(i, _abilityLeft[i]);
@@ -157,6 +157,7 @@ namespace GlobalGameJam2023.Player
             var go = Instantiate(info.Prefab, transform.position, Quaternion.identity);
             var rb = go.GetComponent<Rigidbody2D>();
             rb.AddForce(info.ThrowDirection.normalized * info.ThrowForce * new Vector2(_sr.flipX ? -1f : 1f, 1f), ForceMode2D.Impulse);
+            rb.AddTorque(UnityEngine.Random.Range(10f, 100f));
             go.GetComponent<Projectile>().OnCollision += (_, e) =>
             {
                 switch (info.Type)
