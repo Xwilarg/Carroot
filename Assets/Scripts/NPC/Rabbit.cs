@@ -41,6 +41,10 @@ namespace GlobalGameJam2023.NPC
                 }
                 _anim.SetBool("IsWalking", x != 0f);
             }
+            else
+            {
+                _anim.SetBool("IsWalking", false);
+            }
         }
     }
 }
