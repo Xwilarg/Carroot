@@ -124,6 +124,7 @@ namespace GlobalGameJam2023.Player
             }
             else if (collision.CompareTag("FinishLine"))
             {
+                _rb.velocity = Vector2.zero;
                 GameMenu.Instance.EndGame(_coordinates);
             }
         }
