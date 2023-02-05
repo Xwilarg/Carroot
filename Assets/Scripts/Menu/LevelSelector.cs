@@ -7,7 +7,7 @@ namespace GlobalGameJam2023.Menu
     public class LevelSelector : MonoBehaviour
     {
         public static int TargetLevel { set; get; } = 1;
-        public static int LastLevel => 3;
+        public static int LastLevel => 5;
 
         [SerializeField]
         private GameObject _bossButton;
