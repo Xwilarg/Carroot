@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 namespace GlobalGameJam2023.Menu
 {
@@ -16,6 +17,14 @@ namespace GlobalGameJam2023.Menu
 
         [SerializeField]
         private TMP_Text _timerText, _bestTimerText;
+
+        [SerializeField]
+        private Image[] _skillCooldown;
+
+        public void SetSkillCooldown(int index, float v)
+        {
+            _skillCooldown[index].rectTransform.sizeDelta = new(_skillCooldown[index].rectTransform.sizeDelta.x, v * 100f);
+        }
 
         private void Awake()
         {

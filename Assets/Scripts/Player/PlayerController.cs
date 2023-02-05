@@ -4,8 +4,8 @@ using GlobalGameJam2023.Menu;
 using GlobalGameJam2023.SO;
 using GlobalGameJam2023.System;
 using System;
-using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
@@ -24,7 +24,7 @@ namespace GlobalGameJam2023.Player
         [SerializeField] private Transform leftFoot;
         [SerializeField] private Transform rightFoot;
         [SerializeField] LayerMask colisionRaycastFoot;
-        [SerializeField] private float distanceRaycast = 0.5F;
+        [SerializeField] private float distanceRaycast = 0.5f;
 
         // Controls info
         private Vector2 _mov;
@@ -36,7 +36,8 @@ namespace GlobalGameJam2023.Player
         private Animator _anim;
 
         // Abilities management
-        private bool[] _canUseAbility = new bool[2] { true, true };
+        private float[] _canUseAbility = new float[2] { 0f, 0f };
+        private float[] _canUseAbilityMax;
         private readonly List<GameObject> _lastLiana = new();
 
         // Ghost
@@ -54,6 +55,7 @@ namespace GlobalGameJam2023.Player
             _baseGravityScale = _rb.gravityScale;
             _sr = GetComponent<SpriteRenderer>();
             _anim = GetComponent<Animator>();
+            _canUseAbilityMax = new[] { _info.AbilityOne, _info.AbilityTwo }.Select(x => x.ReloadTime).ToArray();
         }
 
         public void StartGame()
@@ -116,6 +118,15 @@ namespace GlobalGameJam2023.Player
             Debug.DrawRay(rightFoot.position, -Vector3.up * distanceRaycast, Color.red, 0.1f);
         }
 
+        private void Update()
+        {
+            for (int i = 0; i < _canUseAbility.Length; i++)
+            {
+                _canUseAbility[i] -= Time.deltaTime;
+                GameMenu.Instance.SetSkillCooldown(i, Mathf.Clamp01(_canUseAbility[i] / _canUseAbilityMax[i]));
+            }
+        }
+
         private void OnTriggerEnter2D(Collider2D collision)
         {
             if (collision.CompareTag("Liana"))
@@ -158,18 +169,6 @@ namespace GlobalGameJam2023.Player
         }
 
         /// <summary>
-        /// Wait a specific time and allow to use an ability
-        /// </summary>
-        /// <param name="info">Scriptable object of the ability</param>
-        /// <param name="index">Array index of the ability</param>
-        /// <returns>IEnumerator used for coroutine</returns>
-        public IEnumerator ReloadAbility(AbilityInfo info, int index)
-        {
-            yield return new WaitForSeconds(info.ReloadTime);
-            _canUseAbility[index] = true;
-        }
-
-        /// <summary>
         /// Throw a projectile, for when an ability is used
         /// </summary>
         /// <param name="info">Scriptable object of the ability</param>
@@ -208,8 +207,7 @@ namespace GlobalGameJam2023.Player
                 }
             };
             Destroy(go, info.TimeBeforeDisappear);
-            _canUseAbility[index] = false;
-            StartCoroutine(ReloadAbility(_info.AbilityOne, index));
+            _canUseAbility[index] = _canUseAbilityMax[index];
         }
 
         private void Death()
@@ -248,7 +246,7 @@ namespace GlobalGameJam2023.Player
 
         public void AbilityOne(InputAction.CallbackContext value)
         {
-            if (value.performed && _canUseAbility[0] && Timer.Instance.IsPlayerReady)
+            if (value.performed && _canUseAbility[0] <= 0f && Timer.Instance.IsPlayerReady)
             {
                 FireProjectile(_info.AbilityOne, 0);
             }
@@ -256,7 +254,7 @@ namespace GlobalGameJam2023.Player
 
         public void AbilityTwo(InputAction.CallbackContext value)
         {
-            if (value.performed && _canUseAbility[1] && Timer.Instance.IsPlayerReady)
+            if (value.performed && _canUseAbility[1] <= 0f && Timer.Instance.IsPlayerReady)
             {
                 FireProjectile(_info.AbilityTwo, 1);
             }
