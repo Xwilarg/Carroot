@@ -17,7 +17,7 @@ namespace Assets.Scripts.Boss
             if (collision.collider.CompareTag("ProjectileBoss"))
             {
                 _life--;
-                _health.rectTransform.anchorMax = new(_life / _maxLife, 1f);
+                _health.rectTransform.localScale = new((float)_life / _maxLife, 1f);
                 if (_life == 0)
                 {
                     PlayerController.Instance.Win();
