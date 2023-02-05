@@ -74,11 +74,11 @@ namespace GlobalGameJam2023.Menu
                         Time = value,
                         Replay = replay
                     };
-                    _bestTimerText.text = $"{previous / 100f:0.00}";
+                    _bestTimerText.text = $"{Timer.Instance.TimerValue:0.00}";
                 }
                 else
                 {
-                    _bestTimerText.text = $"{Timer.Instance.TimerValue:0.00}";
+                    _bestTimerText.text = $"{previous / 100f:0.00}";
                 }
             }
             else
