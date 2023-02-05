@@ -63,7 +63,6 @@ namespace GlobalGameJam2023.Player
             Instance = this;
             _rb = GetComponent<Rigidbody2D>();
             _baseGravityScale = _rb.gravityScale;
-            Debug.Log(sprite.name);
             _sr = sprite;
             _anim = animatorController;
             _canUseAbilityMax = new[] { _info.AbilityOne, _info.AbilityTwo, _info.AbilityBoss }.Select(x => x.ReloadTime).ToArray();
