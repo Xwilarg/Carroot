@@ -18,5 +18,14 @@
     "level": "Level",
     "best": "Best",
     "retry": "Retry",
-    "return": "Back"
+    "return": "Back",
+    "keyboard": "Keyboard",
+    "controller": "Controller",
+    "moveLeft": "Move Left",
+    "moveRight": "Move Right",
+    "climbUp": "Climb Up",
+    "seedAbility": "Seed Ability",
+    "vineAbility": "Vine Ability",
+    "restartLevel": "Restart Level",
+    "pauseMenu": "Pause Menu"
 }
