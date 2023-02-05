@@ -16,5 +16,7 @@ namespace GlobalGameJam2023.SO
 
         [Tooltip("when the player reaches a certain height in it he dies")]
         public float maxYBeforeDeath = 50f;
+
+        public LevelInfo[] Levels;
     }
 }
