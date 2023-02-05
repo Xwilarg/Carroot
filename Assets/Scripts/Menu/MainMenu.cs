@@ -2,6 +2,7 @@
 using GlobalGameJam2023.Translation;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 namespace GlobalGameJam2023.Menu
 {
@@ -10,6 +11,9 @@ namespace GlobalGameJam2023.Menu
         [SerializeField]
         private GameObject _quitButton, _locateSaveButton;
 
+        [SerializeField]
+        private Slider _soundsSlider, _bgmSlider;
+
         private void Awake()
         {
             if (Application.platform == RuntimePlatform.WebGLPlayer) // We can't quit a WebGL game
@@ -17,6 +21,8 @@ namespace GlobalGameJam2023.Menu
                 _quitButton.SetActive(false);
                 _locateSaveButton.SetActive(false);
             }
+            _soundsSlider.value = DataManager.Instance.SaveData.SoundVolume;
+            _bgmSlider.value = DataManager.Instance.SaveData.MusicVolume;
         }
 
         public void SetLanguage(string language)
@@ -42,6 +48,16 @@ namespace GlobalGameJam2023.Menu
         public void DeleteSave()
         {
             DataManager.Instance.DeleteSaveFolder();
+        }
+
+        public void OnSoundsChange(float value)
+        {
+            DataManager.Instance.SaveData.SoundVolume = value;
+        }
+
+        public void OnBGMChange(float value)
+        {
+            DataManager.Instance.SaveData.MusicVolume = value;
         }
     }
 }
