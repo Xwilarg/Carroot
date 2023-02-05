@@ -100,7 +100,8 @@ namespace GlobalGameJam2023.Menu
 
         public void LoadNextLevel()
         {
-            SceneManager.LoadScene($"Level{LevelSelector.TargetLevel + 1}");
+            LevelSelector.TargetLevel++;
+            SceneManager.LoadScene("Main");
         }
 
         public bool IsGameActive => !_pauseMenu.activeInHierarchy && !DidGameEnded;
