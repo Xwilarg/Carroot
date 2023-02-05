@@ -628,6 +628,9 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 512
   distanceRaycast: 0.5
+  _throwNutSound: {fileID: 8300000, guid: 5991e98d79371654fa5c9a3283181c5c, type: 3}
+  _throwLianaSound: {fileID: 8300000, guid: 52b79255c147e9d4582323362182a8bf, type: 3}
+  _teleportSound: {fileID: 8300000, guid: b67afee473bbd6f42b315041370677b4, type: 3}
 --- !u!114 &9017049287963654279
 MonoBehaviour:
   m_ObjectHideFlags: 0

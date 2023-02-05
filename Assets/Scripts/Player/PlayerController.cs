@@ -25,6 +25,9 @@ namespace GlobalGameJam2023.Player
         [SerializeField] private Transform rightFoot;
         [SerializeField] LayerMask colisionRaycastFoot;
         [SerializeField] private float distanceRaycast = 0.5f;
+        [SerializeField] private AudioClip _throwNutSound;
+        [SerializeField] private AudioClip _throwLianaSound;
+        [SerializeField] private AudioClip _teleportSound;
 
         // Controls info
         private Vector2 _mov;
@@ -164,6 +167,7 @@ namespace GlobalGameJam2023.Player
                 {
                     case AbilityType.TELEPORT:
                         transform.position = e.GameObjectPosition; // We just teleport the player at the projectile position
+                        AudioSystem.Instance.PlaySound(_teleportSound);
                         break;
 
                     case AbilityType.DEPLOY_LIANA:
@@ -237,6 +241,7 @@ namespace GlobalGameJam2023.Player
             if (value.performed && _canUseAbility[0] <= 0f && Timer.Instance.IsPlayerReady && _abilityLeft[0] > 0)
             {
                 FireProjectile(_info.AbilityOne, 0);
+                AudioSystem.Instance.PlaySound(_throwNutSound);
             }
         }
 
@@ -245,6 +250,7 @@ namespace GlobalGameJam2023.Player
             if (value.performed && _canUseAbility[1] <= 0f && Timer.Instance.IsPlayerReady && _abilityLeft[1] > 0)
             {
                 FireProjectile(_info.AbilityTwo, 1);
+                AudioSystem.Instance.PlaySound(_throwLianaSound, 0.7f);
             }
         }
 
