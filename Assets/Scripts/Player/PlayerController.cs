@@ -33,8 +33,13 @@ namespace GlobalGameJam2023.Player
         [SerializeField] private AudioClip _throwNutSound;
         [SerializeField] private AudioClip _throwLianaSound;
         [SerializeField] private AudioClip _teleportSound;
+        [SerializeField] private Transform locationUp;
+        [SerializeField] private Transform locationDown;
 
         [SerializeField] private GameObject particleSystemTp = default;
+        [SerializeField] private GameObject particleSystemLiana = default;
+
+        private GameObject particleSystemLianaInstance = default;
 
         // Controls info
         private Vector2 _mov;
@@ -106,6 +111,21 @@ namespace GlobalGameJam2023.Player
                 Position = new() { X = transform.position.x, Y = transform.position.y },
                 Velocity = new() { X = _rb.velocity.x, Y = _rb.velocity.y },
             });
+
+            if (_canGoUp > 0 && _mov.y > 0)
+            {
+                //if (!particleSystemLianaInstance)
+                //{
+                    particleSystemLianaInstance = Instantiate(particleSystemLiana, locationDown.position, Quaternion.identity);
+                //}
+            }
+            else if (_canGoUp > 0 && _mov.y < 0)
+            {
+                //if (!particleSystemLianaInstance)
+                //{
+                    particleSystemLianaInstance = Instantiate(particleSystemLiana, locationUp.position, Quaternion.identity);
+                //}
+            }
         }
 
         private IEnumerator WaitCoroutine(Action<CollisionEventArgs> callBack, float seconds, CollisionEventArgs e = null)
@@ -123,7 +143,7 @@ namespace GlobalGameJam2023.Player
             float duration = 0.2f;
 
             sprite.transform.transform.DOScale(0f, duration);
-            sprite.transform.transform.DORotate(Vector3.one * 360f, duration).OnComplete(() =>
+            sprite.transform.transform.DORotate(new Vector3(0,0, -360f), duration).OnComplete(() =>
             {
                 transform.position = e.GameObjectPosition;
 
