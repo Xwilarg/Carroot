@@ -3,6 +3,7 @@
     public enum AbilityType
     {
         TELEPORT,
-        DEPLOY_LIANA
+        DEPLOY_LIANA,
+        BOSS
     }
 }

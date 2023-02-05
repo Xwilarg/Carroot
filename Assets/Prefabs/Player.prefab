@@ -628,6 +628,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 512
   distanceRaycast: 0.5
+  _powerupBoss: {fileID: 0}
 --- !u!114 &9017049287963654279
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -773,6 +774,22 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 2755defb-3f0b-4970-9f0b-3158ab99982e
     m_ActionName: Player/Restart[/Keyboard/r]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 9017049287963654280}
+        m_TargetAssemblyTypeName: GlobalGameJam2023.Player.PlayerController, Assembly-CSharp
+        m_MethodName: AbilityThree
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: f1c7c020-29ff-4d47-a1c8-4bdccb5e3432
+    m_ActionName: Player/AbilityBoss[/Keyboard/j]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player

@@ -41,6 +41,10 @@ namespace GlobalGameJam2023.Menu
             {
                 _nextLevelButton.SetActive(false);
             }
+            if (LevelSelector.TargetLevel != 5)
+            {
+                _skillCooldown[2].transform.parent.gameObject.SetActive(false);
+            }
         }
 
         public void ResumeTimeScale()
@@ -74,11 +78,11 @@ namespace GlobalGameJam2023.Menu
                         Time = value,
                         Replay = replay
                     };
-                    _bestTimerText.text = $"{previous / 100f:0.00}";
+                    _bestTimerText.text = $"{Timer.Instance.TimerValue:0.00}";
                 }
                 else
                 {
-                    _bestTimerText.text = $"{Timer.Instance.TimerValue:0.00}";
+                    _bestTimerText.text = $"{previous / 100f:0.00}";
                 }
             }
             else

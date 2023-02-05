@@ -9,6 +9,8 @@ TagManager:
   - FinishLine
   - Trap
   - MovingPlatform
+  - Powerup
+  - ProjectileBoss
   layers:
   - Default
   - TransparentFX
@@ -21,7 +23,7 @@ TagManager:
   - Trap
   - Rabbit
   - RabbitRadar
-  - 
+  - Powerup
   - 
   - 
   - 
