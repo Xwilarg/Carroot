@@ -108,8 +108,8 @@ namespace GlobalGameJam2023.Player
                 }
             }
 
-
-
+            if (transform.position.y <= -_info.maxYBeforeDeath)
+                Death();
 
             Debug.DrawRay(leftFoot.position, -Vector3.up * distanceRaycast, Color.red, 0.1f);
             Debug.DrawRay(rightFoot.position, -Vector3.up * distanceRaycast, Color.red, 0.1f);
