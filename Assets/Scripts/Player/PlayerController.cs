@@ -247,7 +247,7 @@ namespace GlobalGameJam2023.Player
 
         public void AbilityOne(InputAction.CallbackContext value)
         {
-            if (value.performed && _canUseAbility[0])
+            if (value.performed && _canUseAbility[0] && Timer.Instance.IsPlayerReady)
             {
                 FireProjectile(_info.AbilityOne, 0);
             }
@@ -255,7 +255,7 @@ namespace GlobalGameJam2023.Player
 
         public void AbilityTwo(InputAction.CallbackContext value)
         {
-            if (value.performed && _canUseAbility[1])
+            if (value.performed && _canUseAbility[1] && Timer.Instance.IsPlayerReady)
             {
                 FireProjectile(_info.AbilityTwo, 1);
             }
