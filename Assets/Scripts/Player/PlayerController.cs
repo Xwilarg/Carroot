@@ -2,6 +2,7 @@ using GlobalGameJam2023.Ability;
 using GlobalGameJam2023.Level;
 using GlobalGameJam2023.Menu;
 using GlobalGameJam2023.SO;
+using GlobalGameJam2023.System;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -76,7 +77,7 @@ namespace GlobalGameJam2023.Player
                 x: _mov.x * _info.Speed * Time.fixedDeltaTime,
                 y: _canGoUp > 0 ? _info.ClimbingSpeed * Time.fixedDeltaTime * _mov.y : _rb.velocity.y // Attempt to climb a liana if it's possible
             );
-            _anim.SetBool("IsMoving", _rb.velocity.x != 0f);
+            
             _coordinates.Add(new()
             {
                 TimeSinceStart = Time.unscaledTime - _timeRef,
@@ -220,6 +221,19 @@ namespace GlobalGameJam2023.Player
         {
             _mov = value.ReadValue<Vector2>().normalized;
 
+            bool isMoving = _mov.x != 0;
+
+            if (isMoving)
+            {
+                AudioSystem.Instance.PlayFootstep();
+            }
+            else 
+            {
+                AudioSystem.Instance.StopFootstep();
+            }
+
+            _anim.SetBool("IsMoving", isMoving);
+            
             // Flip sprite depending of where we are going
             if (_mov.x > 0f)
             {
