@@ -44,7 +44,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 1
-  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
+  m_BackGroundColor: {r: 0.39215687, g: 0.56078434, b: 0.8235294, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -661,7 +661,6 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 512
   distanceRaycast: 0.5
-  _stepSound: {fileID: 8300000, guid: afe9a0bcc81f6a045b0279ad199d8de5, type: 3}
 --- !u!114 &9017049287963654279
 MonoBehaviour:
   m_ObjectHideFlags: 0
