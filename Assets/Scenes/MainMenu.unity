@@ -764,6 +764,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _quitButton: {fileID: 989414587}
   _locateSaveButton: {fileID: 2065614643}
+  _soundsSlider: {fileID: 646314589}
+  _bgmSlider: {fileID: 216257069}
 --- !u!1 &155722991
 GameObject:
   m_ObjectHideFlags: 0
