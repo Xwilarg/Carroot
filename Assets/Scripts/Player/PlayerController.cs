@@ -175,6 +175,7 @@ namespace GlobalGameJam2023.Player
                         var ignoreLayer = (1 << LayerMask.NameToLayer("Player"));
                         ignoreLayer |= (1 << LayerMask.NameToLayer("Projectile"));
                         ignoreLayer |= (1 << LayerMask.NameToLayer("Rabbit"));
+                        ignoreLayer |= (1 << LayerMask.NameToLayer("RabbitRadar"));
                         ignoreLayer = ~ignoreLayer;
                         while (!Physics2D.OverlapCircle(e.Position + down, .1f, ignoreLayer)) // As long as we can spawn liana we do so
                         {
