@@ -1,1 +1,3 @@
-# GlobalGameJam2023
+# Carroot
+
+![Logo](Preview/logo.png)
